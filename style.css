@@ -163,6 +163,14 @@ img {
   padding: 2rem 0;
 }
 
+.map-section h2 {
+  font-family: "DM Serif Display", Georgia, serif;
+  font-size: 1.75rem;
+  font-weight: 400;
+  margin-bottom: 1.25rem;
+  color: #3b5e3a;
+}
+
 #map {
   height: 420px;
   border-radius: 12px;
