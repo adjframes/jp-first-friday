@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Venues — JP First Friday Art Walk</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <!-- Project styles -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Header (compact) -->
+  <header class="site-header site-header--compact">
+    <div class="header-overlay"></div>
+    <div class="container header-content">
+      <nav class="site-nav">
+        <a href="index.html">Home</a>
+        <a href="venues.html" class="nav-link--active">Venues</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+      <p class="header-site-name">Jamaica Plain Art Walk</p>
+      <h1 class="page-title">Venues</h1>
+    </div>
+  </header>
+
+  <!-- Venue Cards -->
+  <section class="venues-section">
+    <div class="container">
+      <p class="venues-intro">
+        All galleries and art spaces participating in the JP First Friday Art Walk.
+      </p>
+      <div id="venues-grid" class="gallery-grid">
+        <!-- Cards rendered by venues.js -->
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <p class="footer-name">JP First Friday Art Walk</p>
+      <p class="footer-credit">
+        Organized by <a href="https://jamesonandthompson.com" target="_blank" rel="noopener">Jameson &amp; Thompson Picture Framers</a>
+      </p>
+      <p class="footer-location">Jamaica Plain, Boston, MA</p>
+    </div>
+  </footer>
+
+  <!-- PapaParse -->
+  <script src="https://unpkg.com/papaparse@5.4.1/papaparse.min.js"></script>
+
+  <!-- Venues script -->
+  <script src="venues.js"></script>
+</body>
+</html>

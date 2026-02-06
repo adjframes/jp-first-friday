@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact — JP First Friday Art Walk</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <!-- Project styles -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Header (compact) -->
+  <header class="site-header site-header--compact">
+    <div class="header-overlay"></div>
+    <div class="container header-content">
+      <nav class="site-nav">
+        <a href="index.html">Home</a>
+        <a href="venues.html">Venues</a>
+        <a href="contact.html" class="nav-link--active">Contact</a>
+      </nav>
+      <p class="header-site-name">Jamaica Plain Art Walk</p>
+      <h1 class="page-title">Contact</h1>
+    </div>
+  </header>
+
+  <!-- Contact Content -->
+  <section class="contact-section">
+    <div class="container">
+      <h2>Get in Touch</h2>
+      <p>
+        Questions about the art walk, interested in participating, or just want to say hello?
+        Drop us a line.
+      </p>
+      <a class="contact-email" href="mailto:info@firstfridaysjp.com">info@firstfridaysjp.com</a>
+
+      <div class="newsletter-signup">
+        <h2>Monthly Newsletter</h2>
+        <p>
+          Sign up to get a reminder before each First Friday, plus featured artists
+          and exhibition previews.
+        </p>
+        <form id="newsletter-form" class="newsletter-form">
+          <input type="email" name="email" placeholder="you@example.com" required>
+          <button type="submit">Sign Up</button>
+        </form>
+        <p id="newsletter-msg" class="newsletter-msg" hidden></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Newsletter signup script -->
+  <script>
+    // Paste your Google Apps Script web app URL here (see CLAUDE.md for setup)
+    var SIGNUP_URL = "https://script.google.com/macros/s/AKfycbzuGwwv1iy0jrtttn0NRb6kRnbhVo9gHXExNPqRHhPx9UnNbGYxJ2slEYCpFKwg3ha9/exec";
+
+    document.getElementById("newsletter-form").addEventListener("submit", function (e) {
+      e.preventDefault();
+      var form = this;
+      var btn = form.querySelector("button");
+      var msg = document.getElementById("newsletter-msg");
+      var email = form.email.value.trim();
+
+      if (!email) return;
+      if (!SIGNUP_URL) {
+        msg.textContent = "Newsletter signup is not configured yet.";
+        msg.className = "newsletter-msg newsletter-msg--error";
+        msg.hidden = false;
+        return;
+      }
+
+      btn.disabled = true;
+      btn.textContent = "Sending…";
+      msg.hidden = true;
+
+      fetch(SIGNUP_URL, {
+        method: "POST",
+        mode: "no-cors",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: "email=" + encodeURIComponent(email)
+      }).then(function () {
+        msg.textContent = "You\u2019re signed up — see you on First Friday!";
+        msg.className = "newsletter-msg";
+        msg.hidden = false;
+        form.reset();
+      }).catch(function () {
+        msg.textContent = "Something went wrong. Please try again.";
+        msg.className = "newsletter-msg newsletter-msg--error";
+        msg.hidden = false;
+      }).finally(function () {
+        btn.disabled = false;
+        btn.textContent = "Sign Up";
+      });
+    });
+  </script>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <p class="footer-name">JP First Friday Art Walk</p>
+      <p class="footer-credit">
+        Organized by <a href="https://jamesonandthompson.com" target="_blank" rel="noopener">Jameson &amp; Thompson Picture Framers</a>
+      </p>
+      <p class="footer-location">Jamaica Plain, Boston, MA</p>
+    </div>
+  </footer>
+
+</body>
+</html>
