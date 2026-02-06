@@ -45,10 +45,13 @@
           Sign up to get a reminder before each First Friday, plus featured artists
           and exhibition previews.
         </p>
-        <form id="newsletter-form" class="newsletter-form">
+        <form id="newsletter-form" class="newsletter-form"
+              action="https://script.google.com/macros/s/AKfycbzuGwwv1iy0jrtttn0NRb6kRnbhVo9gHXExNPqRHhPx9UnNbGYxJ2slEYCpFKwg3ha9/exec"
+              method="POST" target="signup-iframe">
           <input type="email" name="email" placeholder="you@example.com" required>
           <button type="submit">Sign Up</button>
         </form>
+        <iframe name="signup-iframe" id="signup-iframe" style="display:none;"></iframe>
         <p id="newsletter-msg" class="newsletter-msg" hidden></p>
       </div>
     </div>
@@ -56,46 +59,26 @@
 
   <!-- Newsletter signup script -->
   <script>
-    // Paste your Google Apps Script web app URL here (see CLAUDE.md for setup)
-    var SIGNUP_URL = "https://script.google.com/macros/s/AKfycbzuGwwv1iy0jrtttn0NRb6kRnbhVo9gHXExNPqRHhPx9UnNbGYxJ2slEYCpFKwg3ha9/exec";
+    var form = document.getElementById("newsletter-form");
+    var iframe = document.getElementById("signup-iframe");
+    var msg = document.getElementById("newsletter-msg");
+    var btn = form.querySelector("button");
 
-    document.getElementById("newsletter-form").addEventListener("submit", function (e) {
-      e.preventDefault();
-      var form = this;
-      var btn = form.querySelector("button");
-      var msg = document.getElementById("newsletter-msg");
-      var email = form.email.value.trim();
-
-      if (!email) return;
-      if (!SIGNUP_URL) {
-        msg.textContent = "Newsletter signup is not configured yet.";
-        msg.className = "newsletter-msg newsletter-msg--error";
-        msg.hidden = false;
-        return;
-      }
-
+    form.addEventListener("submit", function () {
       btn.disabled = true;
-      btn.textContent = "Sending…";
+      btn.textContent = "Sending\u2026";
       msg.hidden = true;
+    });
 
-      fetch(SIGNUP_URL, {
-        method: "POST",
-        mode: "no-cors",
-        headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        body: "email=" + encodeURIComponent(email)
-      }).then(function () {
-        msg.textContent = "You\u2019re signed up — see you on First Friday!";
-        msg.className = "newsletter-msg";
-        msg.hidden = false;
-        form.reset();
-      }).catch(function () {
-        msg.textContent = "Something went wrong. Please try again.";
-        msg.className = "newsletter-msg newsletter-msg--error";
-        msg.hidden = false;
-      }).finally(function () {
-        btn.disabled = false;
-        btn.textContent = "Sign Up";
-      });
+    iframe.addEventListener("load", function () {
+      // First load is the empty iframe — ignore it
+      if (!btn.disabled) return;
+      msg.textContent = "You\u2019re signed up \u2014 see you on First Friday!";
+      msg.className = "newsletter-msg";
+      msg.hidden = false;
+      form.reset();
+      btn.disabled = false;
+      btn.textContent = "Sign Up";
     });
   </script>
 
