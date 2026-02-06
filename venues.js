@@ -2,11 +2,11 @@
 const LOCATIONS_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSzyVUNJKGeXlVD--ZT8VS9hIE7pG8eXJRW5VCaTXKrbpn4T9hZpSp5nGMpVixLrzibHEDm1H-wbOnh/pub?output=csv";
 
 var DEFAULT_LOCATIONS = [
-  { id: "jt",        name: "Jameson & Thompson Picture Framers", address: "18 Bartlett Sq, Jamaica Plain",  website: "https://jamesonandthompson.com", instagram: "", contact: "", image_url: "" },
-  { id: "gspc",      name: "Green Street Photo Collective",      address: "186 Green St, Jamaica Plain",    website: "",                               instagram: "", contact: "", image_url: "" },
-  { id: "ula",       name: "Ula Cafe",                           address: "284 Amory St, Jamaica Plain",    website: "",                               instagram: "", contact: "", image_url: "" },
-  { id: "eliot",     name: "Eliot School Annex",                  address: "253 Amory St, Jamaica Plain",    website: "",                               instagram: "", contact: "", image_url: "" },
-  { id: "cyberarts", name: "Boston Cyberarts Gallery",            address: "141 Green St, Jamaica Plain",    website: "",                               instagram: "", contact: "", image_url: "" }
+  { id: "jt",        name: "Jameson & Thompson Picture Framers", address: "18 Bartlett Sq, Jamaica Plain",  website: "https://jamesonandthompson.com", instagram: "", contact: "", image_url: "", description: "" },
+  { id: "gspc",      name: "Green Street Photo Collective",      address: "186 Green St, Jamaica Plain",    website: "",                               instagram: "", contact: "", image_url: "", description: "" },
+  { id: "ula",       name: "Ula Cafe",                           address: "284 Amory St, Jamaica Plain",    website: "",                               instagram: "", contact: "", image_url: "", description: "" },
+  { id: "eliot",     name: "Eliot School Annex",                  address: "253 Amory St, Jamaica Plain",    website: "",                               instagram: "", contact: "", image_url: "", description: "" },
+  { id: "cyberarts", name: "Boston Cyberarts Gallery",            address: "141 Green St, Jamaica Plain",    website: "",                               instagram: "", contact: "", image_url: "", description: "" }
 ];
 
 // ── Helpers ──────────────────────────────────────────────────
@@ -42,7 +42,8 @@ function loadVenues() {
           website: (row.website || "").trim(),
           instagram: (row.instagram || "").trim(),
           contact: (row.contact || "").trim(),
-          image_url: (row.img_url || row.image_url || "").trim()
+          image_url: (row.img_url || row.image_url || "").trim(),
+          description: (row.description || "").trim()
         };
       }).filter(function (v) {
         return v.id && v.name;
@@ -75,6 +76,10 @@ function renderVenues(venues) {
     html += '<div class="card-body">';
     html += "<h3>" + escapeHtml(v.name) + "</h3>";
     html += '<p class="card-address">' + escapeHtml(v.address) + "</p>";
+
+    if (v.description) {
+      html += '<p class="card-description">' + escapeHtml(v.description) + "</p>";
+    }
 
     var links = [];
     if (v.website) {
