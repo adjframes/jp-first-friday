@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JP First Friday Art Walk</title>
+
+  <!-- Project styles -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="site-header">
+    <div class="container">
+      <h1>JP First Friday Art Walk</h1>
+      <p class="subtitle">Jamaica Plain, Boston</p>
+      <p class="description">
+        On the first Friday of every month, galleries and art spaces across
+        Jamaica Plain open their doors for an evening of art, community, and
+        conversation. Stop by, explore, and support local artists.
+      </p>
+    </div>
+  </header>
+
+  <!-- Map -->
+  <section class="map-section">
+    <div class="container">
+      <div id="map"></div>
+    </div>
+  </section>
+
+  <!-- Gallery Cards -->
+  <section class="gallery-section">
+    <div class="container">
+      <h2>Currently on View</h2>
+      <div id="gallery-grid" class="gallery-grid">
+        <!-- Cards rendered by script.js -->
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <p>
+        JP First Friday Art Walk &mdash; Jamaica Plain, Boston, MA
+      </p>
+      <p class="footer-credit">
+        Presented by <a href="https://jamesonandthompson.com" target="_blank" rel="noopener">Jameson &amp; Thompson Picture Framers</a>
+      </p>
+    </div>
+  </footer>
+
+  <!-- PapaParse -->
+  <script src="https://unpkg.com/papaparse@5.4.1/papaparse.min.js"></script>
+
+  <!-- Project script (defines initMap for Google Maps callback) -->
+  <script src="script.js"></script>
+
+  <!-- Google Maps — replace YOUR_API_KEY with your key -->
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAixcxlYadBxG6YQ7h29BKw1cH7ebyg2tU&callback=initMap" async defer></script>
+</body>
+</html>

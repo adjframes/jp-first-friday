@@ -1,0 +1,200 @@
+/* ── Reset & Base ─────────────────────────────────────────── */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  color: #1a1a1a;
+  background: #fafafa;
+  line-height: 1.6;
+}
+
+a {
+  color: #2a5d8a;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+.container {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+/* ── Header ──────────────────────────────────────────────── */
+
+.site-header {
+  background: #1a1a1a;
+  color: #fff;
+  padding: 2.5rem 0 2rem;
+  text-align: center;
+}
+
+.site-header h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  margin-bottom: 0.25rem;
+}
+
+.site-header .subtitle {
+  font-size: 1rem;
+  color: #b0b0b0;
+  margin-bottom: 1rem;
+}
+
+.site-header .description {
+  max-width: 600px;
+  margin: 0 auto;
+  font-size: 0.95rem;
+  color: #d0d0d0;
+  line-height: 1.7;
+}
+
+/* ── Map ─────────────────────────────────────────────────── */
+
+.map-section {
+  padding: 2rem 0;
+}
+
+#map {
+  height: 420px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+}
+
+/* ── Gallery Grid ────────────────────────────────────────── */
+
+.gallery-section {
+  padding: 1rem 0 3rem;
+}
+
+.gallery-section h2 {
+  font-size: 1.4rem;
+  margin-bottom: 1.25rem;
+  font-weight: 600;
+}
+
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.25rem;
+}
+
+/* ── Gallery Card ────────────────────────────────────────── */
+
+.gallery-card {
+  background: #fff;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: box-shadow 0.2s ease;
+}
+
+.gallery-card:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.gallery-card img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+.card-body {
+  padding: 1rem 1.25rem 1.25rem;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.card-body h3 {
+  font-size: 1.1rem;
+  margin-bottom: 0.2rem;
+}
+
+.card-body .card-address {
+  font-size: 0.85rem;
+  color: #666;
+  margin-bottom: 0.75rem;
+}
+
+.card-body .card-show {
+  font-weight: 600;
+  font-size: 0.95rem;
+  margin-bottom: 0.2rem;
+}
+
+.card-body .card-dates {
+  font-size: 0.8rem;
+  color: #888;
+  margin-bottom: 0.5rem;
+}
+
+.no-shows {
+  color: #666;
+  font-style: italic;
+  padding: 2rem 0;
+}
+
+.card-body .card-description {
+  font-size: 0.9rem;
+  color: #444;
+  flex: 1;
+}
+
+.card-body .card-links {
+  margin-top: 0.75rem;
+  font-size: 0.85rem;
+}
+
+.card-body .card-contact {
+  margin-top: 0.35rem;
+  font-size: 0.85rem;
+  color: #555;
+}
+
+/* ── Footer ──────────────────────────────────────────────── */
+
+.site-footer {
+  background: #1a1a1a;
+  color: #aaa;
+  text-align: center;
+  padding: 1.5rem 0;
+  font-size: 0.85rem;
+}
+
+.site-footer a {
+  color: #ccc;
+}
+
+.footer-credit {
+  margin-top: 0.25rem;
+}
+
+/* ── Responsive ──────────────────────────────────────────── */
+
+@media (max-width: 600px) {
+  .site-header h1 {
+    font-size: 1.5rem;
+  }
+
+  #map {
+    height: 300px;
+  }
+
+  .gallery-grid {
+    grid-template-columns: 1fr;
+  }
+}
