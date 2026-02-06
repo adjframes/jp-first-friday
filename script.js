@@ -131,10 +131,10 @@ function loadGalleries() {
 // ── Merge locations + shows by id ───────────────────────────
 
 function mergeData(locations, shows) {
-  var today = todayStr();
+  var friday = nextFirstFridayStr();
 
   var activeShows = shows.filter(function (s) {
-    return isShowActive(s, today);
+    return isShowActive(s, friday);
   });
 
   var showsByLocationId = {};
@@ -281,6 +281,33 @@ function todayStr() {
   return d.getFullYear() + "-" + month + "-" + day;
 }
 
+function getNextFirstFriday() {
+  var now = new Date();
+  var year = now.getFullYear();
+  var month = now.getMonth();
+  var first = new Date(year, month, 1);
+  var dow = first.getDay();
+  var fridayDate = dow <= 5 ? 1 + (5 - dow) : 1 + (12 - dow);
+  var firstFriday = new Date(year, month, fridayDate);
+  // If today is past this month's first Friday, advance to next month
+  var today = new Date(year, now.getMonth(), now.getDate()); // midnight today
+  if (today > firstFriday) {
+    month++;
+    first = new Date(year, month, 1);
+    dow = first.getDay();
+    fridayDate = dow <= 5 ? 1 + (5 - dow) : 1 + (12 - dow);
+    firstFriday = new Date(year, month, fridayDate);
+  }
+  return firstFriday;
+}
+
+function nextFirstFridayStr() {
+  var d = getNextFirstFriday();
+  var month = String(d.getMonth() + 1).padStart(2, "0");
+  var day = String(d.getDate()).padStart(2, "0");
+  return d.getFullYear() + "-" + month + "-" + day;
+}
+
 function isShowActive(show, today) {
   if (show.start_date && today < show.start_date) return false;
   if (show.end_date && today > show.end_date) return false;
@@ -305,22 +332,7 @@ function escapeHtml(str) {
 function setNextFirstFriday() {
   var el = document.getElementById("next-date");
   if (!el) return;
-  var now = new Date();
-  var year = now.getFullYear();
-  var month = now.getMonth();
-  // Find the first Friday of this month
-  var first = new Date(year, month, 1);
-  var day = first.getDay(); // 0=Sun
-  var fridayDate = day <= 5 ? 1 + (5 - day) : 1 + (12 - day);
-  var firstFriday = new Date(year, month, fridayDate);
-  // If it's already past this month's first Friday, go to next month
-  if (now > firstFriday) {
-    month++;
-    first = new Date(year, month, 1);
-    day = first.getDay();
-    fridayDate = day <= 5 ? 1 + (5 - day) : 1 + (12 - day);
-    firstFriday = new Date(year, month, fridayDate);
-  }
+  var firstFriday = getNextFirstFriday();
   el.textContent = firstFriday.toLocaleDateString("en-US", {
     weekday: "long", month: "long", day: "numeric"
   });
