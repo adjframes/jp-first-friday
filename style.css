@@ -102,6 +102,32 @@ img {
   color: #fff;
 }
 
+.header-next-date .next-time {
+  display: block;
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.55);
+  margin-top: 0.15rem;
+}
+
+.header-next-date.is-today {
+  background: rgba(181, 98, 26, 0.85);
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+.header-next-date.is-today .next-label .today-badge {
+  display: inline-block;
+  background: #fff;
+  color: #b5621a;
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 0.1rem 0.45rem;
+  border-radius: 4px;
+  margin-left: 0.4rem;
+  vertical-align: middle;
+}
+
 .site-header h1 {
   font-family: "DM Serif Display", Georgia, serif;
   font-weight: 400;

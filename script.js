@@ -336,5 +336,15 @@ function setNextFirstFriday() {
   el.textContent = firstFriday.toLocaleDateString("en-US", {
     weekday: "long", month: "long", day: "numeric"
   });
+
+  // Highlight if today is First Friday
+  var now = new Date();
+  var today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+  if (today.getTime() === firstFriday.getTime()) {
+    var box = document.getElementById("next-date-box");
+    var label = document.getElementById("next-label");
+    if (box) box.classList.add("is-today");
+    if (label) label.innerHTML = 'Tonight <span class="today-badge">Today</span>';
+  }
 }
 setNextFirstFriday();
