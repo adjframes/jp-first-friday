@@ -288,3 +288,29 @@ function escapeHtml(str) {
   div.appendChild(document.createTextNode(str));
   return div.innerHTML;
 }
+
+// Calculate and display the next First Friday
+function setNextFirstFriday() {
+  var el = document.getElementById("next-date");
+  if (!el) return;
+  var now = new Date();
+  var year = now.getFullYear();
+  var month = now.getMonth();
+  // Find the first Friday of this month
+  var first = new Date(year, month, 1);
+  var day = first.getDay(); // 0=Sun
+  var fridayDate = day <= 5 ? 1 + (5 - day) : 1 + (12 - day);
+  var firstFriday = new Date(year, month, fridayDate);
+  // If it's already past this month's first Friday, go to next month
+  if (now > firstFriday) {
+    month++;
+    first = new Date(year, month, 1);
+    day = first.getDay();
+    fridayDate = day <= 5 ? 1 + (5 - day) : 1 + (12 - day);
+    firstFriday = new Date(year, month, fridayDate);
+  }
+  el.textContent = firstFriday.toLocaleDateString("en-US", {
+    weekday: "long", month: "long", day: "numeric"
+  });
+}
+setNextFirstFriday();

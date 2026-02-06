@@ -37,47 +37,107 @@ img {
 /* ── Header ──────────────────────────────────────────────── */
 
 .site-header {
-  background: linear-gradient(135deg, #3b5e3a 0%, #4a7c48 50%, #5a8f57 100%);
+  position: relative;
+  background: url("https://images.unsplash.com/photo-1577720580479-7d839d829c73?w=1400&q=80") center/cover no-repeat;
   color: #fff;
-  padding: 3rem 0 2.5rem;
-  text-align: center;
+  padding: 0;
+  overflow: hidden;
 }
 
-.site-header .header-tag {
-  display: inline-block;
-  font-family: "Inter", sans-serif;
-  font-size: 0.75rem;
-  font-weight: 600;
-  letter-spacing: 0.15em;
+.header-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(44, 36, 22, 0.88) 0%,
+    rgba(59, 94, 58, 0.82) 50%,
+    rgba(74, 124, 72, 0.75) 100%
+  );
+}
+
+.header-content {
+  position: relative;
+  padding: 2.5rem 1.25rem 3rem;
+}
+
+.header-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 2rem;
+}
+
+.header-location {
+  font-size: 0.8rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
-  background: rgba(255, 255, 255, 0.2);
-  padding: 0.3rem 1rem;
-  border-radius: 2rem;
-  margin-bottom: 1rem;
+  color: rgba(255, 255, 255, 0.6);
+  padding-top: 0.3rem;
+}
+
+.header-next-date {
+  text-align: right;
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(4px);
+  padding: 0.6rem 1.1rem;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.header-next-date .next-label {
+  display: block;
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.6);
+  margin-bottom: 0.1rem;
+}
+
+.header-next-date .next-date {
+  display: block;
+  font-family: "DM Serif Display", Georgia, serif;
+  font-size: 1.15rem;
+  color: #fff;
 }
 
 .site-header h1 {
   font-family: "DM Serif Display", Georgia, serif;
-  font-size: 3rem;
   font-weight: 400;
-  letter-spacing: 0.01em;
-  margin-bottom: 0.15rem;
-  line-height: 1.1;
+  line-height: 1;
+  margin-bottom: 0.75rem;
 }
 
-.site-header .subtitle {
+.site-header .h1-line1 {
+  display: block;
+  font-size: 5.5rem;
+  letter-spacing: -0.02em;
+  line-height: 0.85;
+  color: rgba(255, 255, 255, 0.25);
+  -webkit-text-stroke: 1.5px rgba(255, 255, 255, 0.7);
+}
+
+.site-header .h1-line2 {
+  display: block;
+  font-size: 3.5rem;
+  margin-top: -0.15rem;
+}
+
+.site-header .header-tagline {
   font-family: "Inter", sans-serif;
-  font-size: 1rem;
-  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.85rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.55);
   margin-bottom: 1.25rem;
-  font-weight: 400;
 }
 
 .site-header .description {
-  max-width: 520px;
-  margin: 0 auto;
-  font-size: 0.95rem;
-  color: rgba(255, 255, 255, 0.85);
+  max-width: 440px;
+  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.8);
   line-height: 1.7;
 }
 
@@ -238,11 +298,25 @@ img {
 /* ── Responsive ──────────────────────────────────────────── */
 
 @media (max-width: 600px) {
-  .site-header {
-    padding: 2.5rem 0 2rem;
+  .header-content {
+    padding: 2rem 1.25rem 2.5rem;
   }
 
-  .site-header h1 {
+  .header-top {
+    flex-direction: column;
+    gap: 0.75rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .header-next-date {
+    align-self: flex-start;
+  }
+
+  .site-header .h1-line1 {
+    font-size: 3.5rem;
+  }
+
+  .site-header .h1-line2 {
     font-size: 2.25rem;
   }
 
