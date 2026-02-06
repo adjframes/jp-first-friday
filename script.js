@@ -75,7 +75,7 @@ function loadGalleries() {
             website: (row.website || "").trim(),
             instagram: (row.instagram || "").trim(),
             contact: (row.contact || "").trim(),
-            image_url: (row.image_url || "").trim()
+            image_url: (row.img_url || row.image_url || "").trim()
           };
         }).filter(function (loc) {
           return loc.id && loc.name && !isNaN(loc.lat) && !isNaN(loc.lng);
@@ -107,7 +107,7 @@ function loadGalleries() {
             show_description: (row.show_description || "").trim(),
             start_date: (row.start_date || "").trim(),
             end_date: (row.end_date || "").trim(),
-            image_url: (row.image_url || "").trim()
+            image_url: (row.img_url || row.image_url || "").trim()
           };
         }).filter(function (s) {
           return s.location_id;

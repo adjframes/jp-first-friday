@@ -42,7 +42,7 @@ function loadVenues() {
           website: (row.website || "").trim(),
           instagram: (row.instagram || "").trim(),
           contact: (row.contact || "").trim(),
-          image_url: (row.image_url || "").trim()
+          image_url: (row.img_url || row.image_url || "").trim()
         };
       }).filter(function (v) {
         return v.id && v.name;
