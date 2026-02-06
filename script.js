@@ -173,9 +173,14 @@ function render(galleries) {
 }
 
 function addMarkers(galleries) {
+  var bounds = new google.maps.LatLngBounds();
+
   galleries.forEach(function (g) {
+    var position = { lat: g.lat, lng: g.lng };
+    bounds.extend(position);
+
     var marker = new google.maps.Marker({
-      position: { lat: g.lat, lng: g.lng },
+      position: position,
       map: map,
       title: g.name
     });
@@ -205,6 +210,13 @@ function addMarkers(galleries) {
       infoWindow.open(map, marker);
     });
   });
+
+  if (galleries.length > 1) {
+    map.fitBounds(bounds, 50);
+  } else if (galleries.length === 1) {
+    map.setCenter(bounds.getCenter());
+    map.setZoom(16);
+  }
 }
 
 function renderCards(galleries) {
