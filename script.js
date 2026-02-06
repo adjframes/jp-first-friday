@@ -344,7 +344,7 @@ function setNextFirstFriday() {
     var box = document.getElementById("next-date-box");
     var label = document.getElementById("next-label");
     if (box) box.classList.add("is-today");
-    if (label) label.innerHTML = 'Tonight <span class="today-badge">Today</span>';
+    if (label) label.textContent = 'Tonight';
   }
 }
 setNextFirstFriday();

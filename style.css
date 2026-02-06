@@ -114,18 +114,8 @@ img {
   border-color: rgba(255, 255, 255, 0.3);
 }
 
-.header-next-date.is-today .next-label .today-badge {
-  display: inline-block;
-  background: #fff;
-  color: #b5621a;
-  font-size: 0.6rem;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  padding: 0.1rem 0.45rem;
-  border-radius: 4px;
-  margin-left: 0.4rem;
-  vertical-align: middle;
+.header-next-date.is-today .next-label {
+  color: rgba(255, 255, 255, 0.9);
 }
 
 .site-header h1 {
