@@ -168,7 +168,16 @@ function mergeData(locations, shows) {
 
 // ── Rendering ───────────────────────────────────────────────
 
+function shuffle(arr) {
+  for (var i = arr.length - 1; i > 0; i--) {
+    var j = Math.floor(Math.random() * (i + 1));
+    var tmp = arr[i]; arr[i] = arr[j]; arr[j] = tmp;
+  }
+  return arr;
+}
+
 function render(galleries) {
+  shuffle(galleries);
   addMarkers(galleries);
   renderCards(galleries);
 }
