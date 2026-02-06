@@ -486,21 +486,35 @@ img {
   }
 
   .header-top {
-    flex-direction: column;
-    gap: 0.75rem;
-    margin-bottom: 0.75rem;
+    align-items: flex-start;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
   }
 
   .header-next-date {
-    align-self: flex-start;
+    padding: 0.4rem 0.7rem;
+    border-radius: 8px;
+    flex-shrink: 0;
+  }
+
+  .header-next-date .next-date {
+    font-size: 0.9rem;
+  }
+
+  .header-next-date .next-label {
+    font-size: 0.55rem;
+  }
+
+  .header-next-date .next-time {
+    font-size: 0.65rem;
   }
 
   .site-header .h1-line1 {
-    font-size: 2.5rem;
+    font-size: 2rem;
   }
 
   .site-header .h1-line2 {
-    font-size: 2rem;
+    font-size: 1.75rem;
   }
 
   #map {
