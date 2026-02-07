@@ -355,6 +355,8 @@ function setNextFirstFriday() {
     var label = document.getElementById("next-label");
     if (box) box.classList.add("is-today");
     if (label) label.textContent = 'Tonight';
+    var heading = document.querySelector(".map-section h2");
+    if (heading) heading.textContent = "Tonight\u2019s Events";
   }
 }
 setNextFirstFriday();
