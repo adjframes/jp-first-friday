@@ -51,6 +51,8 @@ All three pages share a `<nav class="site-nav">` with links to Home, Venues, and
 
 `LOCATIONS_CSV_URL` and `DEFAULT_LOCATIONS` are defined in both `script.js` and `venues.js`. If you change the Locations CSV URL or add/remove default locations, update both files.
 
+`FOOD_CSV_URL` is only in `script.js` — food spots are home page map only (no cards, no Venues page).
+
 ## Google Maps API Key
 
 A Google Maps JavaScript API key is required. To set it up:
@@ -63,7 +65,7 @@ A Google Maps JavaScript API key is required. To set it up:
 
 ## Google Sheet Setup
 
-Use a single Google Sheets workbook with **two tabs** (sheets). Each tab is published separately as CSV.
+Use a single Google Sheets workbook with **three tabs** (sheets). Each tab is published separately as CSV.
 
 ### Tab 1: Locations
 
@@ -100,14 +102,28 @@ Columns:
 - Either date can be left blank for open-ended ranges (e.g. no `end_date` means the show stays active indefinitely)
 - Update this tab each month with new exhibition info
 
+### Tab 3: Food
+
+Columns:
+
+| name | address | lat | lng | website | cuisine | description |
+|------|---------|-----|-----|---------|---------|-------------|
+
+- Food spots appear as **orange markers** on the home page map only (no cards)
+- Clicking a food marker shows name, cuisine, address, and website link
+- Falls back to `DEFAULT_FOOD` in `script.js` when `FOOD_CSV_URL` is empty or fetch fails
+- `FOOD_CSV_URL` is set in `script.js`
+
 ### Publishing
 
 1. **File → Share → Publish to the web**
 2. In the dropdown, select the **Locations** tab → CSV → Publish → copy URL
 3. Repeat for the **Shows** tab → CSV → copy URL
-4. Paste both URLs into `script.js` **and** `venues.js`:
-   - `LOCATIONS_CSV_URL` — the Locations tab URL (both files)
-   - `SHOWS_CSV_URL` — the Shows tab URL (script.js only)
+4. Repeat for the **Food** tab → CSV → copy URL
+5. Paste URLs into the JS files:
+   - `LOCATIONS_CSV_URL` — the Locations tab URL (`script.js` and `venues.js`)
+   - `SHOWS_CSV_URL` — the Shows tab URL (`script.js` only)
+   - `FOOD_CSV_URL` — the Food tab URL (`script.js` only)
 
 ## Newsletter Signup (Google Sheet + Apps Script)
 
