@@ -16,11 +16,11 @@ var DEFAULT_LOCATIONS = [
 ];
 
 var DEFAULT_SHOWS = [
-  { location_id: "jt",        current_show: "Group Show",              show_description: "A rotating selection of works by local artists.",              start_date: "2026-02-01", end_date: "2026-02-28", image_url: "" },
-  { location_id: "gspc",      current_show: "Member Exhibition",       show_description: "Photography by collective members exploring urban landscapes.", start_date: "2026-02-01", end_date: "2026-02-28", image_url: "" },
-  { location_id: "ula",       current_show: "Walls of Ula",            show_description: "Rotating art on the cafe walls featuring neighborhood artists.", start_date: "2026-02-01", end_date: "2026-02-28", image_url: "" },
-  { location_id: "eliot",     current_show: "Student & Faculty Show",  show_description: "Works from Eliot School classes and workshops.",               start_date: "2026-02-01", end_date: "2026-02-28", image_url: "" },
-  { location_id: "cyberarts", current_show: "New Media Exhibition",    show_description: "Digital and technology-driven art from Boston-area artists.",   start_date: "2026-02-01", end_date: "2026-02-28", image_url: "" }
+  { location_id: "jt",        current_show: "Group Show",              show_description: "A rotating selection of works by local artists.",              start_date: "2026-02-01", end_date: "2026-02-28", image_url: "", url: "" },
+  { location_id: "gspc",      current_show: "Member Exhibition",       show_description: "Photography by collective members exploring urban landscapes.", start_date: "2026-02-01", end_date: "2026-02-28", image_url: "", url: "" },
+  { location_id: "ula",       current_show: "Walls of Ula",            show_description: "Rotating art on the cafe walls featuring neighborhood artists.", start_date: "2026-02-01", end_date: "2026-02-28", image_url: "", url: "" },
+  { location_id: "eliot",     current_show: "Student & Faculty Show",  show_description: "Works from Eliot School classes and workshops.",               start_date: "2026-02-01", end_date: "2026-02-28", image_url: "", url: "" },
+  { location_id: "cyberarts", current_show: "New Media Exhibition",    show_description: "Digital and technology-driven art from Boston-area artists.",   start_date: "2026-02-01", end_date: "2026-02-28", image_url: "", url: "" }
 ];
 
 // ── Google Maps globals ─────────────────────────────────────
@@ -107,7 +107,8 @@ function loadGalleries() {
             show_description: (row.show_description || "").trim(),
             start_date: (row.start_date || "").trim(),
             end_date: (row.end_date || "").trim(),
-            image_url: (row.img_url || row.image_url || "").trim()
+            image_url: (row.img_url || row.image_url || "").trim(),
+            url: (row.url || "").trim()
           };
         }).filter(function (s) {
           return s.location_id;
@@ -161,7 +162,8 @@ function mergeData(locations, shows) {
         show_description: show.show_description || "",
         start_date: show.start_date || "",
         end_date: show.end_date || "",
-        image_url: show.image_url || ""
+        image_url: show.image_url || "",
+        show_url: show.url || ""
       };
     });
 }
@@ -204,9 +206,10 @@ function addMarkers(galleries) {
     if (g.start_date || g.end_date) {
       content += "<br><small>" + escapeHtml(formatDate(g.start_date) + " \u2013 " + formatDate(g.end_date)) + "</small>";
     }
-    if (g.website) {
+    var markerLink = g.show_url || g.website;
+    if (markerLink) {
       content +=
-        '<br><a href="' + encodeURI(g.website) + '" target="_blank" rel="noopener">Website</a>';
+        '<br><a href="' + encodeURI(markerLink) + '" target="_blank" rel="noopener">Website</a>';
     }
     if (g.instagram) {
       content +=
@@ -263,8 +266,9 @@ function renderCards(galleries) {
       html += '<p class="card-description">' + escapeHtml(g.show_description) + "</p>";
     }
     var links = [];
-    if (g.website) {
-      links.push('<a href="' + encodeURI(g.website) + '" target="_blank" rel="noopener">Website</a>');
+    var mainLink = g.show_url || g.website;
+    if (mainLink) {
+      links.push('<a href="' + encodeURI(mainLink) + '" target="_blank" rel="noopener">Website</a>');
     }
     if (g.instagram) {
       links.push('<a href="https://instagram.com/' + encodeURIComponent(g.instagram) + '" target="_blank" rel="noopener">@' + escapeHtml(g.instagram) + '</a>');
