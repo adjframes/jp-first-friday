@@ -190,7 +190,7 @@ function addFoodMarkers(spots) {
       position: position,
       map: map,
       title: s.name,
-      icon: "https://maps.google.com/mapfiles/ms/icons/orange-dot.png"
+      icon: "https://maps.google.com/mapfiles/ms/icons/blue-dot.png"
     });
 
     var content = "<strong>" + escapeHtml(s.name) + "</strong>";
@@ -280,7 +280,8 @@ function addMarkers(galleries) {
     var marker = new google.maps.Marker({
       position: position,
       map: map,
-      title: g.name
+      title: g.name,
+      icon: "https://maps.google.com/mapfiles/ms/icons/red-dot.png"
     });
 
     var content =
