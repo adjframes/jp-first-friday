@@ -71,8 +71,17 @@ function renderVenues(venues) {
   grid.innerHTML = "";
 
   venues.forEach(function (v) {
-    var card = document.createElement("div");
-    card.className = "gallery-card";
+    var card;
+    if (v.website) {
+      card = document.createElement("a");
+      card.href = v.website;
+      card.target = "_blank";
+      card.rel = "noopener";
+      card.className = "gallery-card gallery-card--link";
+    } else {
+      card = document.createElement("div");
+      card.className = "gallery-card";
+    }
 
     var html = "";
 

@@ -180,6 +180,7 @@ function render(galleries) {
   shuffle(galleries);
   addMarkers(galleries);
   renderCards(galleries);
+  updateCalendarLink(galleries);
 }
 
 function addMarkers(galleries) {
@@ -336,6 +337,37 @@ function escapeHtml(str) {
   var div = document.createElement("div");
   div.appendChild(document.createTextNode(str));
   return div.innerHTML;
+}
+
+// ── Update Google Calendar link with show details ────────────
+
+function updateCalendarLink(galleries) {
+  var calLink = document.getElementById("next-cal");
+  if (!calLink) return;
+
+  var firstFriday = getNextFirstFriday();
+  var y = firstFriday.getFullYear();
+  var m = String(firstFriday.getMonth() + 1).padStart(2, "0");
+  var d = String(firstFriday.getDate()).padStart(2, "0");
+  var start = y + m + d + "T180000";
+  var end = y + m + d + "T200000";
+
+  var details = "Galleries and art spaces open their doors for an evening of art, community, and conversation. 6\u20138 pm.";
+
+  if (galleries && galleries.length > 0) {
+    details += "\n\n\ud83d\uddbc\ufe0f What\u2019s on:\n";
+    galleries.forEach(function (g) {
+      details += "\n\u2022 " + g.name;
+      if (g.current_show) details += " \u2014 " + g.current_show;
+    });
+  }
+
+  calLink.href = "https://calendar.google.com/calendar/render?action=TEMPLATE"
+    + "&text=" + encodeURIComponent("JP First Fridays")
+    + "&dates=" + start + "/" + end
+    + "&ctz=America/New_York"
+    + "&details=" + encodeURIComponent(details)
+    + "&location=" + encodeURIComponent("Jamaica Plain, Boston, MA");
 }
 
 // Calculate and display the next First Friday

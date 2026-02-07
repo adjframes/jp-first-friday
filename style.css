@@ -124,6 +124,21 @@ img {
   margin-top: 0.15rem;
 }
 
+.header-next-date .next-cal {
+  display: block;
+  font-size: 0.6rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: rgba(255, 255, 255, 0.45);
+  text-decoration: none;
+  margin-top: 0.35rem;
+  transition: color 0.15s ease;
+}
+
+.header-next-date .next-cal:hover {
+  color: #fff;
+}
+
 .header-next-date.is-today {
   background: rgba(181, 98, 26, 0.85);
   border-color: rgba(255, 255, 255, 0.3);
@@ -378,6 +393,12 @@ img {
   box-shadow: 0 8px 24px rgba(44, 36, 22, 0.12);
 }
 
+a.gallery-card--link {
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+}
+
 .gallery-card img {
   width: 100%;
   height: 220px;
@@ -448,37 +469,52 @@ img {
 /* ── Footer ──────────────────────────────────────────────── */
 
 .site-footer {
-  background: #2c2416;
-  color: rgba(255, 255, 255, 0.5);
+  position: relative;
+  background: url("https://images.unsplash.com/photo-1577720580479-7d839d829c73?w=1400&q=80") center bottom/cover no-repeat;
+  color: rgba(255, 255, 255, 0.6);
   text-align: center;
   padding: 2rem 0;
   font-size: 0.85rem;
+  overflow: hidden;
+}
+
+.footer-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(44, 36, 22, 0.92) 0%,
+    rgba(59, 94, 58, 0.88) 50%,
+    rgba(74, 124, 72, 0.82) 100%
+  );
+}
+
+.footer-content {
+  position: relative;
 }
 
 .site-footer .footer-name {
-  font-family: "DM Serif Display", Georgia, serif;
-  font-size: 1.1rem;
-  color: rgba(255, 255, 255, 0.8);
-  margin-bottom: 0.35rem;
+  font-family: "Fraunces", Georgia, serif;
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 0.3rem;
 }
 
 .site-footer a {
-  color: rgba(255, 255, 255, 0.65);
+  color: rgba(255, 255, 255, 0.75);
   text-decoration: underline;
-  text-decoration-color: rgba(255, 255, 255, 0.25);
+  text-decoration-color: rgba(255, 255, 255, 0.3);
   text-underline-offset: 2px;
 }
 
 .site-footer a:hover {
-  color: rgba(255, 255, 255, 0.9);
-}
-
-.footer-credit {
-  margin-bottom: 0.2rem;
+  color: #fff;
 }
 
 .footer-location {
   font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.5);
 }
 
 /* ── Responsive ──────────────────────────────────────────── */
