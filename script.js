@@ -243,8 +243,18 @@ function renderCards(galleries) {
   }
 
   galleries.forEach(function (g) {
-    var card = document.createElement("div");
-    card.className = "gallery-card";
+    var cardLink = g.show_url || g.website;
+    var card;
+    if (cardLink) {
+      card = document.createElement("a");
+      card.href = cardLink;
+      card.target = "_blank";
+      card.rel = "noopener";
+      card.className = "gallery-card gallery-card--link";
+    } else {
+      card = document.createElement("div");
+      card.className = "gallery-card";
+    }
 
     var html = "";
 
