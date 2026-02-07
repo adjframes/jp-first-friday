@@ -35,6 +35,7 @@ var DEFAULT_FOOD = [
 // ── Google Maps globals ─────────────────────────────────────
 var map;
 var infoWindow;
+var foodMarkers = [];
 
 // ── Map init (called by Google Maps API callback) ───────────
 function initMap() {
@@ -45,6 +46,14 @@ function initMap() {
   infoWindow = new google.maps.InfoWindow();
   loadGalleries();
   loadFood();
+
+  var toggle = document.getElementById("food-toggle");
+  if (toggle) {
+    toggle.addEventListener("change", function () {
+      var visible = toggle.checked;
+      foodMarkers.forEach(function (m) { m.setMap(visible ? map : null); });
+    });
+  }
 }
 
 // ── Data loading ────────────────────────────────────────────
@@ -208,6 +217,8 @@ function addFoodMarkers(spots) {
       infoWindow.setContent(content);
       infoWindow.open(map, marker);
     });
+
+    foodMarkers.push(marker);
   });
 
   if (spots.length > 0) {
