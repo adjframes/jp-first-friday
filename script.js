@@ -295,8 +295,11 @@ function addMarkers(galleries) {
       icon: "https://maps.google.com/mapfiles/ms/icons/red-dot.png"
     });
 
-    var content =
-      "<strong>" + escapeHtml(g.name) + "</strong>";
+    var content = "";
+    if (g.image_url) {
+      content += '<img src="' + encodeURI(g.image_url) + '" alt="' + escapeHtml(g.current_show || g.name) + '" style="width:200px;max-height:140px;object-fit:cover;border-radius:4px;margin-bottom:6px;">';
+    }
+    content += "<strong>" + escapeHtml(g.name) + "</strong>";
     if (g.current_show) {
       content += "<br>" + escapeHtml(g.current_show);
     }
