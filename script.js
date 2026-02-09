@@ -4,7 +4,6 @@
 // Google Sheets → File → Share → Publish to the web → select tab → CSV
 const LOCATIONS_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSzyVUNJKGeXlVD--ZT8VS9hIE7pG8eXJRW5VCaTXKrbpn4T9hZpSp5nGMpVixLrzibHEDm1H-wbOnh/pub?output=csv";
 const SHOWS_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTRpVaWHft5OzPQfEttKA6RVgGpGB6wJWJRBP671U_CiwqEbtZmYO7ye0i1ZyNq1AwPqmezhNnQfxyb/pub?output=csv";
-const FOOD_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTg37CYs-HQjJw1ZwJWy25YPWSarP8m_j-Gbr4e5PjZkpZJT5gXrdaA89hZkSulDRFDNPAAkvfts4hF/pub?output=csv";
 
 // ── Fallback / default data ─────────────────────────────────
 
@@ -24,18 +23,9 @@ var DEFAULT_SHOWS = [
   { location_id: "cyberarts", current_show: "New Media Exhibition",    show_description: "Digital and technology-driven art from Boston-area artists.",   start_date: "2026-02-01", end_date: "2026-02-28", image_url: "", url: "" }
 ];
 
-var DEFAULT_FOOD = [
-  { name: "Vee Vee",             address: "763 Centre St, Jamaica Plain",  lat: 42.3094, lng: -71.1148, website: "https://www.veevee.com",           cuisine: "New American",   description: "Creative cocktails and a seasonal menu in a cozy setting." },
-  { name: "El Miami Restaurant", address: "381 Centre St, Jamaica Plain",  lat: 42.3178, lng: -71.1053, website: "",                                 cuisine: "Dominican",      description: "Hearty Dominican classics, a neighborhood staple." },
-  { name: "Tres Gatos",          address: "470 Centre St, Jamaica Plain",  lat: 42.3151, lng: -71.1082, website: "https://www.tresgatos.com",        cuisine: "Tapas",          description: "Spanish tapas, vinyl records, and used books." },
-  { name: "Chilacates",          address: "479 Centre St, Jamaica Plain",  lat: 42.3149, lng: -71.1085, website: "https://www.chilacates.com",       cuisine: "Mexican",        description: "Homemade tamales, tacos, and Mexican comfort food." },
-  { name: "JP Seafood Cafe",     address: "730 Centre St, Jamaica Plain",  lat: 42.3101, lng: -71.1140, website: "",                                 cuisine: "Korean / Sushi", description: "Korean dishes and sushi in a relaxed neighborhood spot." }
-];
-
 // ── Google Maps globals ─────────────────────────────────────
 var map;
 var infoWindow;
-var foodMarkers = [];
 
 // ── Map init (called by Google Maps API callback) ───────────
 function initMap() {
@@ -45,15 +35,6 @@ function initMap() {
   });
   infoWindow = new google.maps.InfoWindow();
   loadGalleries();
-  loadFood();
-
-  var toggle = document.getElementById("food-toggle");
-  if (toggle) {
-    toggle.addEventListener("change", function () {
-      var visible = toggle.checked;
-      foodMarkers.forEach(function (m) { m.setMap(visible ? map : null); });
-    });
-  }
 }
 
 // ── Data loading ────────────────────────────────────────────
@@ -149,83 +130,6 @@ function loadGalleries() {
   }
 }
 
-// ── Food spots ──────────────────────────────────────────────
-
-function loadFood() {
-  if (!FOOD_CSV_URL) {
-    addFoodMarkers(DEFAULT_FOOD);
-    return;
-  }
-
-  Papa.parse(FOOD_CSV_URL, {
-    download: true,
-    header: true,
-    skipEmptyLines: true,
-    complete: function (results) {
-      var spots = (results.data || []).map(function (row) {
-        return {
-          name: (row.name || "").trim(),
-          address: (row.address || "").trim(),
-          lat: parseFloat(row.lat),
-          lng: parseFloat(row.lng),
-          website: (row.website || "").trim(),
-          cuisine: (row.cuisine || "").trim(),
-          description: (row.description || "").trim()
-        };
-      }).filter(function (s) {
-        return s.name && !isNaN(s.lat) && !isNaN(s.lng);
-      });
-
-      if (spots.length > 0) {
-        addFoodMarkers(spots);
-      } else {
-        addFoodMarkers(DEFAULT_FOOD);
-      }
-    },
-    error: function () {
-      addFoodMarkers(DEFAULT_FOOD);
-    }
-  });
-}
-
-function addFoodMarkers(spots) {
-  var bounds = map.getBounds() || new google.maps.LatLngBounds();
-
-  spots.forEach(function (s) {
-    var position = { lat: s.lat, lng: s.lng };
-    bounds.extend(position);
-
-    var marker = new google.maps.Marker({
-      position: position,
-      map: map,
-      title: s.name,
-      icon: "https://maps.google.com/mapfiles/ms/icons/blue-dot.png"
-    });
-
-    var content = "<strong>" + escapeHtml(s.name) + "</strong>";
-    if (s.cuisine) {
-      content += "<br><em>" + escapeHtml(s.cuisine) + "</em>";
-    }
-    if (s.address) {
-      content += "<br>" + escapeHtml(s.address);
-    }
-    if (s.website) {
-      content += '<br><a href="' + encodeURI(s.website) + '" target="_blank" rel="noopener">Website</a>';
-    }
-
-    marker.addListener("click", function () {
-      infoWindow.setContent(content);
-      infoWindow.open(map, marker);
-    });
-
-    foodMarkers.push(marker);
-  });
-
-  if (spots.length > 0) {
-    map.fitBounds(bounds, 50);
-  }
-}
-
 // ── Merge locations + shows by id ───────────────────────────
 
 function mergeData(locations, shows) {
@@ -291,8 +195,7 @@ function addMarkers(galleries) {
     var marker = new google.maps.Marker({
       position: position,
       map: map,
-      title: g.name,
-      icon: "https://maps.google.com/mapfiles/ms/icons/red-dot.png"
+      title: g.name
     });
 
     var content = "";

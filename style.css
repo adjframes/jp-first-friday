@@ -348,26 +348,6 @@ img {
   color: #3b5e3a;
 }
 
-.map-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-}
-
-.map-toggle {
-  display: flex;
-  align-items: center;
-  gap: 0.4rem;
-  cursor: pointer;
-  font-size: 0.82rem;
-  color: #5a5045;
-  user-select: none;
-}
-
-.map-toggle input {
-  accent-color: #3b5e3a;
-}
-
 #map {
   height: 420px;
   border-radius: 12px;
