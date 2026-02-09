@@ -9,18 +9,18 @@
 }
 
 body {
-  font-family: "Inter", "Segoe UI", Roboto, sans-serif;
-  color: #2c2416;
-  background: #f5f0e8;
+  font-family: "Space Grotesk", "Segoe UI", Roboto, sans-serif;
+  color: #1a1a2e;
+  background: #f0eee6;
   line-height: 1.6;
 }
 
 a {
-  color: #b5621a;
+  color: #d4403a;
 }
 
 a:hover {
-  color: #8a4a12;
+  color: #a83230;
 }
 
 img {
@@ -43,12 +43,12 @@ img {
 }
 
 .site-nav a {
-  font-family: "Inter", sans-serif;
+  font-family: "Space Grotesk", sans-serif;
   font-size: 0.75rem;
   font-weight: 600;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.5);
+  color: rgba(255, 255, 255, 0.45);
   text-decoration: none;
   transition: color 0.15s ease;
 }
@@ -62,7 +62,7 @@ img {
 
 .site-header {
   position: relative;
-  background: url("https://images.unsplash.com/photo-1577720580479-7d839d829c73?w=1400&q=80") center/cover no-repeat;
+  background: #1a1a2e;
   color: #fff;
   padding: 0;
   overflow: hidden;
@@ -71,17 +71,16 @@ img {
 .header-overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(
-    135deg,
-    rgba(44, 36, 22, 0.88) 0%,
-    rgba(59, 94, 58, 0.82) 50%,
-    rgba(74, 124, 72, 0.75) 100%
-  );
+  background:
+    radial-gradient(ellipse at 15% 80%, rgba(30, 180, 100, 0.5) 0%, transparent 50%),
+    radial-gradient(ellipse at 85% 20%, rgba(212, 64, 58, 0.45) 0%, transparent 45%),
+    radial-gradient(ellipse at 50% 50%, rgba(226, 185, 59, 0.3) 0%, transparent 60%),
+    linear-gradient(160deg, #1a1a2e 0%, #2a2050 100%);
 }
 
 .header-content {
   position: relative;
-  padding: 1.5rem 1.25rem 2rem;
+  padding: 1.5rem 1.25rem 2.25rem;
 }
 
 .header-top {
@@ -93,11 +92,11 @@ img {
 
 .header-next-date {
   text-align: right;
-  background: rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.08);
   backdrop-filter: blur(4px);
   padding: 0.6rem 1.1rem;
-  border-radius: 10px;
-  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .header-next-date .next-label {
@@ -106,32 +105,33 @@ img {
   font-weight: 600;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.6);
+  color: rgba(255, 255, 255, 0.5);
   margin-bottom: 0.1rem;
 }
 
 .header-next-date .next-date {
   display: block;
-  font-family: "DM Serif Display", Georgia, serif;
-  font-size: 1.15rem;
+  font-family: "Syne", sans-serif;
+  font-weight: 700;
+  font-size: 1.1rem;
   color: #fff;
 }
 
 .header-next-date .next-time {
   display: block;
   font-size: 0.75rem;
-  color: rgba(255, 255, 255, 0.55);
+  color: rgba(255, 255, 255, 0.45);
   margin-top: 0.15rem;
 }
 
 .header-next-date .next-cal {
   display: block;
-  font-size: 0.6rem;
+  font-size: 0.65rem;
   font-weight: 600;
   letter-spacing: 0.04em;
-  color: rgba(255, 255, 255, 0.45);
+  color: #e2b93b;
   text-decoration: none;
-  margin-top: 0.35rem;
+  margin-top: 0.4rem;
   transition: color 0.15s ease;
 }
 
@@ -140,8 +140,8 @@ img {
 }
 
 .header-next-date.is-today {
-  background: rgba(181, 98, 26, 0.85);
-  border-color: rgba(255, 255, 255, 0.3);
+  background: rgba(212, 64, 58, 0.8);
+  border-color: rgba(255, 255, 255, 0.25);
 }
 
 .header-next-date.is-today .next-label {
@@ -149,44 +149,48 @@ img {
 }
 
 .site-header h1 {
-  font-family: "Fraunces", Georgia, serif;
-  font-weight: 400;
+  font-family: "Syne", sans-serif;
+  font-weight: 800;
   line-height: 1;
-  margin-bottom: 0.75rem;
+  margin-bottom: 0.35rem;
 }
 
 .site-header .h1-line1 {
   display: block;
   font-size: 3.5rem;
-  font-weight: 300;
+  font-weight: 400;
   letter-spacing: -0.02em;
   line-height: 0.85;
-  color: rgba(255, 255, 255, 0.25);
-  -webkit-text-stroke: 1.5px rgba(255, 255, 255, 0.7);
+  color: transparent;
+  -webkit-text-stroke: 1.5px rgba(226, 185, 59, 0.6);
 }
 
 .site-header .h1-line2 {
   display: block;
-  font-size: 3.5rem;
-  font-weight: 700;
-  letter-spacing: -0.02em;
-  margin-top: -0.15rem;
+  font-size: 3.8rem;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  margin-top: 0.05rem;
+  background: linear-gradient(135deg, #e2b93b, #d4403a, #1eb864);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 .site-header .header-tagline {
-  font-family: "Inter", sans-serif;
-  font-size: 0.85rem;
-  font-weight: 500;
-  letter-spacing: 0.08em;
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.55);
-  margin-bottom: 0.75rem;
+  color: #e2b93b;
+  margin-bottom: 0.25rem;
 }
 
 .site-header .description {
   max-width: 440px;
   font-size: 1rem;
-  color: rgba(255, 255, 255, 0.8);
+  color: rgba(255, 255, 255, 0.7);
   line-height: 1.7;
 }
 
@@ -197,16 +201,17 @@ img {
 }
 
 .header-site-name {
-  font-family: "DM Serif Display", Georgia, serif;
-  font-size: 1rem;
-  color: rgba(255, 255, 255, 0.5);
+  font-family: "Syne", sans-serif;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.4);
   margin-bottom: 0.25rem;
 }
 
 .site-header--compact .page-title {
-  font-family: "DM Serif Display", Georgia, serif;
-  font-size: 2.5rem;
-  font-weight: 400;
+  font-family: "Syne", sans-serif;
+  font-size: 2.8rem;
+  font-weight: 800;
   color: #fff;
   line-height: 1.1;
 }
@@ -218,16 +223,16 @@ img {
 }
 
 .contact-section h2 {
-  font-family: "DM Serif Display", Georgia, serif;
-  font-size: 1.75rem;
-  font-weight: 400;
-  color: #3b5e3a;
+  font-family: "Syne", sans-serif;
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: #1a1a2e;
   margin-bottom: 0.75rem;
 }
 
 .contact-section p {
   font-size: 1rem;
-  color: #5a5045;
+  color: #555;
   line-height: 1.7;
   margin-bottom: 1rem;
 }
@@ -236,12 +241,12 @@ img {
   display: inline-block;
   font-size: 1.15rem;
   font-weight: 600;
-  color: #b5621a;
+  color: #d4403a;
   text-decoration: none;
 }
 
 .contact-email:hover {
-  color: #8a4a12;
+  color: #a83230;
 }
 
 .newsletter-signup {
@@ -258,37 +263,37 @@ img {
 .newsletter-form input[type="email"] {
   flex: 1;
   padding: 0.7rem 1rem;
-  font-family: "Inter", sans-serif;
+  font-family: "Space Grotesk", sans-serif;
   font-size: 0.95rem;
-  border: 2px solid #d6cfc5;
-  border-radius: 8px;
+  border: 2px solid #ddd;
+  border-radius: 10px;
   background: #fff;
-  color: #2c2416;
+  color: #1a1a2e;
   transition: border-color 0.15s ease;
 }
 
 .newsletter-form input[type="email"]:focus {
   outline: none;
-  border-color: #3b5e3a;
+  border-color: #d4403a;
 }
 
 .newsletter-form button {
   padding: 0.7rem 1.5rem;
-  font-family: "Inter", sans-serif;
+  font-family: "Space Grotesk", sans-serif;
   font-size: 0.85rem;
   font-weight: 600;
   letter-spacing: 0.04em;
   color: #fff;
-  background: #3b5e3a;
+  background: #d4403a;
   border: none;
-  border-radius: 8px;
+  border-radius: 10px;
   cursor: pointer;
   transition: background 0.15s ease;
   white-space: nowrap;
 }
 
 .newsletter-form button:hover {
-  background: #2c4a2b;
+  background: #a83230;
 }
 
 .newsletter-form button:disabled {
@@ -299,12 +304,12 @@ img {
 .newsletter-msg {
   margin-top: 0.75rem;
   font-size: 0.9rem;
-  color: #3b5e3a;
+  color: #1eb864;
   font-weight: 500;
 }
 
 .newsletter-msg--error {
-  color: #b5621a;
+  color: #d4403a;
 }
 
 /* ── Venues Page ─────────────────────────────────────────── */
@@ -315,7 +320,7 @@ img {
 
 .venues-section p.venues-intro {
   font-size: 1rem;
-  color: #5a5045;
+  color: #555;
   line-height: 1.7;
   margin-bottom: 1.5rem;
   max-width: 600px;
@@ -324,13 +329,14 @@ img {
 .venue-placeholder-img {
   width: 100%;
   height: 220px;
-  background: #d6cfc5;
+  background: linear-gradient(135deg, #e2b93b 0%, #d4403a 40%, #1eb864 100%);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-family: "DM Serif Display", Georgia, serif;
+  font-family: "Syne", sans-serif;
   font-size: 2.5rem;
-  color: rgba(44, 36, 22, 0.25);
+  font-weight: 800;
+  color: rgba(255, 255, 255, 0.6);
   letter-spacing: 0.05em;
 }
 
@@ -341,18 +347,18 @@ img {
 }
 
 .map-section h2 {
-  font-family: "DM Serif Display", Georgia, serif;
-  font-size: 1.75rem;
-  font-weight: 400;
+  font-family: "Syne", sans-serif;
+  font-size: 1.6rem;
+  font-weight: 700;
   margin-bottom: 1.25rem;
-  color: #3b5e3a;
+  color: #1a1a2e;
 }
 
 #map {
   height: 420px;
-  border-radius: 12px;
-  border: 3px solid #3b5e3a;
-  box-shadow: 0 4px 20px rgba(59, 94, 58, 0.15);
+  border-radius: 16px;
+  border: 3px solid #1a1a2e;
+  box-shadow: 0 4px 24px rgba(26, 26, 46, 0.12);
 }
 
 /* ── Gallery Grid ────────────────────────────────────────── */
@@ -362,11 +368,11 @@ img {
 }
 
 .gallery-section h2 {
-  font-family: "DM Serif Display", Georgia, serif;
-  font-size: 1.75rem;
-  font-weight: 400;
+  font-family: "Syne", sans-serif;
+  font-size: 1.6rem;
+  font-weight: 700;
   margin-bottom: 1.25rem;
-  color: #3b5e3a;
+  color: #1a1a2e;
 }
 
 .gallery-grid {
@@ -380,17 +386,23 @@ img {
 .gallery-card {
   background: #fff;
   border: none;
-  border-radius: 12px;
+  border-radius: 16px;
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  box-shadow: 0 2px 8px rgba(44, 36, 22, 0.08);
+  box-shadow: 0 2px 8px rgba(26, 26, 46, 0.07);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
+  border-top: 4px solid transparent;
+  background-clip: padding-box;
 }
 
+.gallery-card:nth-child(3n+1) { border-top-color: #d4403a; }
+.gallery-card:nth-child(3n+2) { border-top-color: #e2b93b; }
+.gallery-card:nth-child(3n+3) { border-top-color: #1eb864; }
+
 .gallery-card:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 8px 24px rgba(44, 36, 22, 0.12);
+  transform: translateY(-4px);
+  box-shadow: 0 10px 30px rgba(26, 26, 46, 0.12);
 }
 
 a.gallery-card--link {
@@ -413,16 +425,16 @@ a.gallery-card--link {
 }
 
 .card-body h3 {
-  font-family: "DM Serif Display", Georgia, serif;
-  font-size: 1.15rem;
-  font-weight: 400;
+  font-family: "Syne", sans-serif;
+  font-size: 1.1rem;
+  font-weight: 700;
   margin-bottom: 0.25rem;
-  color: #2c2416;
+  color: #1a1a2e;
 }
 
 .card-body .card-address {
   font-size: 0.8rem;
-  color: #8a7e6e;
+  color: #999;
   margin-bottom: 0.85rem;
 }
 
@@ -430,18 +442,18 @@ a.gallery-card--link {
   font-weight: 600;
   font-size: 0.95rem;
   margin-bottom: 0.2rem;
-  color: #b5621a;
+  color: #d4403a;
 }
 
 .card-body .card-dates {
   font-size: 0.78rem;
-  color: #8a7e6e;
+  color: #999;
   margin-bottom: 0.6rem;
   letter-spacing: 0.02em;
 }
 
 .no-shows {
-  color: #8a7e6e;
+  color: #999;
   font-style: italic;
   padding: 2.5rem 0;
   text-align: center;
@@ -450,7 +462,7 @@ a.gallery-card--link {
 
 .card-body .card-description {
   font-size: 0.9rem;
-  color: #5a5045;
+  color: #555;
   flex: 1;
   line-height: 1.65;
 }
@@ -463,14 +475,14 @@ a.gallery-card--link {
 .card-body .card-contact {
   margin-top: 0.35rem;
   font-size: 0.82rem;
-  color: #8a7e6e;
+  color: #999;
 }
 
 /* ── Footer ──────────────────────────────────────────────── */
 
 .site-footer {
   position: relative;
-  background: url("https://images.unsplash.com/photo-1577720580479-7d839d829c73?w=1400&q=80") center bottom/cover no-repeat;
+  background: #1a1a2e;
   color: rgba(255, 255, 255, 0.6);
   text-align: center;
   padding: 2rem 0;
@@ -481,12 +493,9 @@ a.gallery-card--link {
 .footer-overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(
-    135deg,
-    rgba(44, 36, 22, 0.92) 0%,
-    rgba(59, 94, 58, 0.88) 50%,
-    rgba(74, 124, 72, 0.82) 100%
-  );
+  background:
+    radial-gradient(ellipse at 20% 50%, rgba(30, 184, 100, 0.25) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 50%, rgba(212, 64, 58, 0.2) 0%, transparent 50%);
 }
 
 .footer-content {
@@ -494,27 +503,27 @@ a.gallery-card--link {
 }
 
 .site-footer .footer-name {
-  font-family: "Fraunces", Georgia, serif;
+  font-family: "Syne", sans-serif;
   font-size: 1.2rem;
-  font-weight: 700;
+  font-weight: 800;
   color: #fff;
   margin-bottom: 0.3rem;
 }
 
 .site-footer a {
-  color: rgba(255, 255, 255, 0.75);
+  color: rgba(255, 255, 255, 0.7);
   text-decoration: underline;
-  text-decoration-color: rgba(255, 255, 255, 0.3);
+  text-decoration-color: rgba(255, 255, 255, 0.25);
   text-underline-offset: 2px;
 }
 
 .site-footer a:hover {
-  color: #fff;
+  color: #e2b93b;
 }
 
 .footer-location {
   font-size: 0.8rem;
-  color: rgba(255, 255, 255, 0.5);
+  color: rgba(255, 255, 255, 0.4);
 }
 
 /* ── Responsive ──────────────────────────────────────────── */
@@ -532,7 +541,7 @@ a.gallery-card--link {
 
   .header-next-date {
     padding: 0.4rem 0.7rem;
-    border-radius: 8px;
+    border-radius: 10px;
     flex-shrink: 0;
   }
 
@@ -553,12 +562,12 @@ a.gallery-card--link {
   }
 
   .site-header .h1-line2 {
-    font-size: 1.75rem;
+    font-size: 2.2rem;
   }
 
   #map {
     height: 300px;
-    border-radius: 8px;
+    border-radius: 10px;
   }
 
   .gallery-grid {
