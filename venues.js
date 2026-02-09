@@ -17,6 +17,13 @@ function escapeHtml(str) {
   return div.innerHTML;
 }
 
+function linkifyContact(str) {
+  return escapeHtml(str).replace(
+    /([a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,})/g,
+    '<a href="mailto:$1">$1</a>'
+  );
+}
+
 function getInitials(name) {
   return name.split(/\s+/).map(function (w) { return w[0]; }).join("").toUpperCase().slice(0, 3);
 }
@@ -110,7 +117,7 @@ function renderVenues(venues) {
       html += '<p class="card-links">' + links.join(" &middot; ") + "</p>";
     }
     if (v.contact) {
-      html += '<p class="card-contact">' + escapeHtml(v.contact) + "</p>";
+      html += '<p class="card-contact">' + linkifyContact(v.contact) + "</p>";
     }
 
     html += "</div>";

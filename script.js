@@ -219,7 +219,7 @@ function addMarkers(galleries) {
         ' &middot; <a href="https://instagram.com/' + encodeURIComponent(g.instagram) + '" target="_blank" rel="noopener">@' + escapeHtml(g.instagram) + '</a>';
     }
     if (g.contact) {
-      content += "<br>" + escapeHtml(g.contact);
+      content += "<br>" + linkifyContact(g.contact);
     }
 
     marker.addListener("click", function () {
@@ -290,7 +290,7 @@ function renderCards(galleries) {
       html += '<p class="card-links">' + links.join(" &middot; ") + "</p>";
     }
     if (g.contact) {
-      html += '<p class="card-contact">' + escapeHtml(g.contact) + "</p>";
+      html += '<p class="card-contact">' + linkifyContact(g.contact) + "</p>";
     }
 
     html += "</div>";
@@ -354,6 +354,13 @@ function escapeHtml(str) {
   var div = document.createElement("div");
   div.appendChild(document.createTextNode(str));
   return div.innerHTML;
+}
+
+function linkifyContact(str) {
+  return escapeHtml(str).replace(
+    /([a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,})/g,
+    '<a href="mailto:$1">$1</a>'
+  );
 }
 
 // ── Update Google Calendar link with show details ────────────
