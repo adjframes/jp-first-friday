@@ -72,20 +72,21 @@ Columns:
 | id | name | address | lat | lng | website | instagram | contact | image_url |
 |----|------|---------|-----|-----|---------|-----------|---------|-----------|
 
-- `lat` / `lng` are decimal coordinates (e.g. `42.3098`, `-71.1138`)
+- `lat` / `lng` are **optional** decimal coordinates (e.g. `42.3098`, `-71.1138`). If omitted, the address is auto-geocoded via the Google Maps Geocoding service
+- `address` should be specific enough for geocoding (include city and state, e.g. "18 Bartlett Sq, Jamaica Plain, MA")
 - `instagram` is the handle without the @ (e.g. `jamesonandthompson`)
 - `contact` is free-text — email, phone, or any contact info you want displayed
 - `image_url` is an optional photo URL for the venue (used on the Venues page; shows a placeholder if empty)
 
 Pre-filled data:
 
-| id | name | address | lat | lng |
-|----|------|---------|-----|-----|
-| jt | Jameson & Thompson Picture Framers | 18 Bartlett Sq, Jamaica Plain | 42.3098 | -71.1138 |
-| gspc | Green Street Photo Collective | 186 Green St, Jamaica Plain | 42.3114 | -71.1085 |
-| ula | Ula Cafe | 284 Amory St, Jamaica Plain | 42.3082 | -71.1100 |
-| eliot | Eliot School Annex | 253 Amory St, Jamaica Plain | 42.3088 | -71.1094 |
-| cyberarts | Boston Cyberarts Gallery | 141 Green St, Jamaica Plain | 42.3120 | -71.1070 |
+| id | name | address |
+|----|------|---------|
+| jt | Jameson & Thompson Picture Framers | 18 Bartlett Sq, Jamaica Plain, MA |
+| gspc | Green Street Photo Collective | 186 Green St, Jamaica Plain, MA |
+| ula | Ula Cafe | 284 Amory St, Jamaica Plain, MA |
+| eliot | Eliot School Annex | 253 Amory St, Jamaica Plain, MA |
+| cyberarts | Boston Cyberarts Gallery | 141 Green St, Jamaica Plain, MA |
 
 ### Tab 2: Shows
 

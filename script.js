@@ -8,11 +8,11 @@ const SHOWS_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTRpVaWHf
 // ── Fallback / default data ─────────────────────────────────
 
 var DEFAULT_LOCATIONS = [
-  { id: "jt",        name: "Jameson & Thompson Picture Framers", address: "18 Bartlett Sq, Jamaica Plain",  lat: 42.3098, lng: -71.1138, website: "https://jamesonandthompson.com", instagram: "", contact: "", image_url: "" },
-  { id: "gspc",      name: "Green Street Photo Collective",      address: "186 Green St, Jamaica Plain",    lat: 42.3114, lng: -71.1085, website: "",                               instagram: "", contact: "", image_url: "" },
-  { id: "ula",       name: "Ula Cafe",                           address: "284 Amory St, Jamaica Plain",    lat: 42.3082, lng: -71.1100, website: "",                               instagram: "", contact: "", image_url: "" },
-  { id: "eliot",     name: "Eliot School Annex",                  address: "253 Amory St, Jamaica Plain",    lat: 42.3088, lng: -71.1094, website: "",                               instagram: "", contact: "", image_url: "" },
-  { id: "cyberarts", name: "Boston Cyberarts Gallery",            address: "141 Green St, Jamaica Plain",    lat: 42.3120, lng: -71.1070, website: "",                               instagram: "", contact: "", image_url: "" }
+  { id: "jt",        name: "Jameson & Thompson Picture Framers", address: "18 Bartlett Sq, Jamaica Plain, MA",  website: "https://jamesonandthompson.com", instagram: "", contact: "", image_url: "" },
+  { id: "gspc",      name: "Green Street Photo Collective",      address: "186 Green St, Jamaica Plain, MA",    website: "",                               instagram: "", contact: "", image_url: "" },
+  { id: "ula",       name: "Ula Cafe",                           address: "284 Amory St, Jamaica Plain, MA",    website: "",                               instagram: "", contact: "", image_url: "" },
+  { id: "eliot",     name: "Eliot School Annex",                  address: "253 Amory St, Jamaica Plain, MA",    website: "",                               instagram: "", contact: "", image_url: "" },
+  { id: "cyberarts", name: "Boston Cyberarts Gallery",            address: "141 Green St, Jamaica Plain, MA",    website: "",                               instagram: "", contact: "", image_url: "" }
 ];
 
 var DEFAULT_SHOWS = [
@@ -70,15 +70,15 @@ function loadGalleries() {
             id: (row.id || "").trim(),
             name: (row.name || "").trim(),
             address: (row.address || "").trim(),
-            lat: parseFloat(row.lat),
-            lng: parseFloat(row.lng),
+            lat: row.lat ? parseFloat(row.lat) : NaN,
+            lng: row.lng ? parseFloat(row.lng) : NaN,
             website: (row.website || "").trim(),
             instagram: (row.instagram || "").trim(),
             contact: (row.contact || "").trim(),
             image_url: (row.img_url || row.image_url || "").trim()
           };
         }).filter(function (loc) {
-          return loc.id && loc.name && !isNaN(loc.lat) && !isNaN(loc.lng);
+          return loc.id && loc.name && loc.address;
         });
 
         tryRender();
@@ -153,8 +153,8 @@ function mergeData(locations, shows) {
       return {
         name: loc.name,
         address: loc.address,
-        lat: loc.lat,
-        lng: loc.lng,
+        lat: loc.lat || NaN,
+        lng: loc.lng || NaN,
         website: loc.website,
         instagram: loc.instagram,
         contact: loc.contact,
@@ -186,18 +186,22 @@ function render(galleries) {
 }
 
 function addMarkers(galleries) {
+  var geocoder = new google.maps.Geocoder();
   var bounds = new google.maps.LatLngBounds();
+  var pending = galleries.length;
+
+  function fitWhenDone() {
+    pending--;
+    if (pending > 0) return;
+    if (galleries.length > 1) {
+      map.fitBounds(bounds, 50);
+    } else if (galleries.length === 1) {
+      map.setCenter(bounds.getCenter());
+      map.setZoom(16);
+    }
+  }
 
   galleries.forEach(function (g) {
-    var position = { lat: g.lat, lng: g.lng };
-    bounds.extend(position);
-
-    var marker = new google.maps.Marker({
-      position: position,
-      map: map,
-      title: g.name
-    });
-
     var content = "";
     if (g.image_url) {
       content += '<img src="' + encodeURI(g.image_url) + '" alt="' + escapeHtml(g.current_show || g.name) + '" style="width:200px;max-height:140px;object-fit:cover;border-radius:4px;margin-bottom:6px;">';
@@ -222,18 +226,32 @@ function addMarkers(galleries) {
       content += "<br>" + escapeHtml(g.contact);
     }
 
-    marker.addListener("click", function () {
-      infoWindow.setContent(content);
-      infoWindow.open(map, marker);
-    });
-  });
+    function placeMarker(position) {
+      bounds.extend(position);
+      var marker = new google.maps.Marker({
+        position: position,
+        map: map,
+        title: g.name
+      });
+      marker.addListener("click", function () {
+        infoWindow.setContent(content);
+        infoWindow.open(map, marker);
+      });
+      fitWhenDone();
+    }
 
-  if (galleries.length > 1) {
-    map.fitBounds(bounds, 50);
-  } else if (galleries.length === 1) {
-    map.setCenter(bounds.getCenter());
-    map.setZoom(16);
-  }
+    if (!isNaN(g.lat) && !isNaN(g.lng)) {
+      placeMarker({ lat: g.lat, lng: g.lng });
+    } else {
+      geocoder.geocode({ address: g.address }, function (results, status) {
+        if (status === "OK" && results[0]) {
+          placeMarker(results[0].geometry.location);
+        } else {
+          fitWhenDone();
+        }
+      });
+    }
+  });
 }
 
 function renderCards(galleries) {
