@@ -62,7 +62,7 @@ img {
 
 .site-header {
   position: relative;
-  background: #1a1a2e;
+  background: url("https://images.unsplash.com/photo-1633437208253-4d724232d3b6?w=1400&q=80") center/cover no-repeat;
   color: #fff;
   padding: 0;
   overflow: hidden;
@@ -71,11 +71,7 @@ img {
 .header-overlay {
   position: absolute;
   inset: 0;
-  background:
-    radial-gradient(ellipse at 15% 80%, rgba(30, 180, 100, 0.5) 0%, transparent 50%),
-    radial-gradient(ellipse at 85% 20%, rgba(212, 64, 58, 0.45) 0%, transparent 45%),
-    radial-gradient(ellipse at 50% 50%, rgba(226, 185, 59, 0.3) 0%, transparent 60%),
-    linear-gradient(160deg, #1a1a2e 0%, #2a2050 100%);
+  background: rgba(26, 26, 46, 0.6);
 }
 
 .header-content {
@@ -482,7 +478,7 @@ a.gallery-card--link {
 
 .site-footer {
   position: relative;
-  background: #1a1a2e;
+  background: url("https://images.unsplash.com/photo-1633437208253-4d724232d3b6?w=1400&q=80") center bottom/cover no-repeat;
   color: rgba(255, 255, 255, 0.6);
   text-align: center;
   padding: 2rem 0;
@@ -493,9 +489,7 @@ a.gallery-card--link {
 .footer-overlay {
   position: absolute;
   inset: 0;
-  background:
-    radial-gradient(ellipse at 20% 50%, rgba(30, 184, 100, 0.25) 0%, transparent 50%),
-    radial-gradient(ellipse at 80% 50%, rgba(212, 64, 58, 0.2) 0%, transparent 50%);
+  background: rgba(26, 26, 46, 0.65);
 }
 
 .footer-content {
