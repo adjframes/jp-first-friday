@@ -45,7 +45,7 @@ function updateCalendarLink() {
   var d = String(firstFriday.getDate()).padStart(2, "0");
   var start = y + m + d + "T173000";
   var end = y + m + d + "T203000";
-  var details = "Galleries and art spaces open their doors for an evening of art, community, and conversation. 5:30\u20138:30 pm.";
+  var details = "https://firstfridaysjp.com\n\nGalleries and art spaces in Jamaica Plain open their doors for an evening of art, community, and conversation. 5:30\u20138:30 pm.";
   calLink.href = "https://calendar.google.com/calendar/render?action=TEMPLATE"
     + "&text=" + encodeURIComponent("JP First Fridays")
     + "&dates=" + start + "/" + end

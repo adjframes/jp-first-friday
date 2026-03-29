@@ -63,6 +63,7 @@ img {
 .site-header {
   color: #111;
   padding: 0;
+  background: #fdf6ec;
 }
 
 .header-banner-wrap {
@@ -77,7 +78,7 @@ img {
 }
 
 .header-content {
-  padding: 1.25rem 1.25rem 1.75rem;
+  padding: 1.25rem 1.25rem 0.6rem;
   background: #fdf6ec;
 }
 
@@ -85,7 +86,6 @@ img {
   display: flex;
   align-items: flex-start;
   gap: 2rem;
-  margin-bottom: 1rem;
 }
 
 .header-left {
@@ -203,16 +203,16 @@ img {
 }
 
 .site-header .description {
-  max-width: 440px;
+  max-width: 560px;
   font-size: 1rem;
   color: rgba(0, 0, 0, 0.65);
-  line-height: 1.7;
+  line-height: 1.4;
 }
 
 /* ── Compact Header (inner pages) ────────────────────────── */
 
 .site-header--compact .header-content {
-  padding: 1.5rem 1.25rem 2rem;
+  padding: 1.25rem 1.25rem 0.6rem;
 }
 
 .header-site-name {
@@ -235,6 +235,7 @@ img {
 
 .contact-section {
   padding: 2.5rem 0 3.5rem;
+  background: #faf8f4;
 }
 
 .contact-section h2 {
@@ -331,6 +332,7 @@ img {
 
 .venues-section {
   padding: 2.5rem 0 3.5rem;
+  background: #faf8f4;
 }
 
 .venues-section h2 {
@@ -367,6 +369,7 @@ img {
 
 .map-section {
   padding: 2rem 0;
+  background: #faf8f4;
 }
 
 .map-section h2 {
@@ -388,6 +391,7 @@ img {
 
 .gallery-section {
   padding: 0.5rem 0 3.5rem;
+  background: #faf8f4;
 }
 
 .gallery-section h2 {
@@ -504,47 +508,42 @@ a.gallery-card--link {
 /* ── Footer ──────────────────────────────────────────────── */
 
 .site-footer {
-  position: relative;
-  background: url("https://images.unsplash.com/photo-1633437208253-4d724232d3b6?w=1400&q=80") center bottom/cover no-repeat;
-  color: rgba(255, 255, 255, 0.6);
+  background: #f5c98a;
+  color: rgba(0, 0, 0, 0.55);
   text-align: center;
-  padding: 2rem 0;
-  font-size: 0.85rem;
-  overflow: hidden;
+  padding: 0.75rem 0;
+  font-size: 0.75rem;
 }
 
 .footer-overlay {
-  position: absolute;
-  inset: 0;
-  background: rgba(26, 26, 46, 0.65);
+  display: none;
 }
 
 .footer-content {
-  position: relative;
 }
 
 .site-footer .footer-name {
   font-family: "Syne", sans-serif;
-  font-size: 1.2rem;
+  font-size: 1rem;
   font-weight: 800;
-  color: #fff;
-  margin-bottom: 0.3rem;
+  color: #111;
+  margin-bottom: 0.1rem;
 }
 
 .site-footer a {
-  color: rgba(255, 255, 255, 0.7);
+  color: rgba(0, 0, 0, 0.6);
   text-decoration: underline;
-  text-decoration-color: rgba(255, 255, 255, 0.25);
+  text-decoration-color: rgba(0, 0, 0, 0.2);
   text-underline-offset: 2px;
 }
 
 .site-footer a:hover {
-  color: #e2b93b;
+  color: #111;
 }
 
 .footer-location {
   font-size: 0.8rem;
-  color: rgba(255, 255, 255, 0.4);
+  color: rgba(0, 0, 0, 0.45);
 }
 
 /* ── Responsive ──────────────────────────────────────────── */

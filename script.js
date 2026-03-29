@@ -376,13 +376,15 @@ function updateCalendarLink(galleries) {
   var start = y + m + d + "T173000";
   var end = y + m + d + "T203000";
 
-  var details = "Galleries and art spaces open their doors for an evening of art, community, and conversation. 5:30\u20138:30 pm.";
+  var details = "https://firstfridaysjp.com\n\nGalleries and art spaces in Jamaica Plain open their doors for an evening of art, community, and conversation. 5:30\u20138:30 pm.";
 
   if (galleries && galleries.length > 0) {
     details += "\n\n\ud83d\uddbc\ufe0f What\u2019s on:\n";
     galleries.forEach(function (g) {
       details += "\n\u2022 " + g.name;
       if (g.current_show) details += " \u2014 " + g.current_show;
+      var link = g.show_url || g.website;
+      if (link) details += "\n  " + link;
     });
   }
 
