@@ -381,7 +381,7 @@ function updateCalendarLink(galleries) {
   if (galleries && galleries.length > 0) {
     details += "\n\n\ud83d\uddbc\ufe0f What\u2019s on:\n";
     galleries.forEach(function (g) {
-      details += "\n\u2022 " + g.name;
+      details += "\n\n\u2022 " + g.name;
       if (g.current_show) details += " \u2014 " + g.current_show;
       var link = g.show_url || g.website;
       if (link) details += "\n  " + link;
