@@ -373,10 +373,10 @@ function updateCalendarLink(galleries) {
   var y = firstFriday.getFullYear();
   var m = String(firstFriday.getMonth() + 1).padStart(2, "0");
   var d = String(firstFriday.getDate()).padStart(2, "0");
-  var start = y + m + d + "T180000";
-  var end = y + m + d + "T200000";
+  var start = y + m + d + "T173000";
+  var end = y + m + d + "T203000";
 
-  var details = "Galleries and art spaces open their doors for an evening of art, community, and conversation. 6\u20138 pm.";
+  var details = "Galleries and art spaces open their doors for an evening of art, community, and conversation. 5:30\u20138:30 pm.";
 
   if (galleries && galleries.length > 0) {
     details += "\n\n\ud83d\uddbc\ufe0f What\u2019s on:\n";

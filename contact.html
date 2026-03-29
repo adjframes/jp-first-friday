@@ -17,22 +17,35 @@
 
   <!-- Header (compact) -->
   <header class="site-header site-header--compact">
-    <div class="header-overlay"></div>
+    <div class="header-banner-wrap"><img src="logo.png" alt="JP First Fridays" class="header-banner"></div>
     <div class="container header-content">
-      <nav class="site-nav">
-        <a href="index.html">Home</a>
-        <a href="venues.html">Venues</a>
-        <a href="contact.html" class="nav-link--active">Contact</a>
-      </nav>
-      <p class="header-site-name">Jamaica Plain First Fridays</p>
-      <h1 class="page-title">Contact</h1>
+      <div class="header-top">
+        <div class="header-left">
+          <nav class="site-nav">
+            <a href="index.html">Home</a>
+            <a href="venues.html">Venues</a>
+            <a href="contact.html" class="nav-link--active">Contact</a>
+          </nav>
+          <p class="header-tagline">First Friday of every month</p>
+          <p class="description">
+            Galleries and art spaces open their doors for an evening
+            of art, community, and conversation.
+          </p>
+        </div>
+        <div class="header-next-date" id="next-date-box">
+          <span class="next-label" id="next-label">Coming up</span>
+          <span class="next-date" id="next-date"></span>
+          <span class="next-time">5:30 &ndash; 8:30 pm</span>
+          <a class="next-cal" id="next-cal" href="#" target="_blank" rel="noopener">+ Google Calendar</a>
+        </div>
+      </div>
     </div>
   </header>
 
   <!-- Contact Content -->
   <section class="contact-section">
     <div class="container">
-      <h2>Get in Touch</h2>
+      <h2>Contact</h2>
       <p>
         Questions about First Fridays, interested in participating, or just want to say hello?
         Drop us a line.
@@ -81,6 +94,8 @@
       btn.textContent = "Sign Up";
     });
   </script>
+
+  <script src="header.js"></script>
 
   <!-- Footer -->
   <footer class="site-footer">
