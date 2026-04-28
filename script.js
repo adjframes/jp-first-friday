@@ -139,20 +139,15 @@ function mergeData(locations, shows) {
     return isShowActive(s, friday);
   });
 
-  var showsByLocationId = {};
-  activeShows.forEach(function (s) {
-    if (!showsByLocationId[s.location_id]) {
-      showsByLocationId[s.location_id] = [];
-    }
-    showsByLocationId[s.location_id].push(s);
-  });
+  var locById = {};
+  locations.forEach(function (loc) { locById[loc.id] = loc; });
 
-  return locations
-    .filter(function (loc) {
-      return showsByLocationId[loc.id];
-    })
-    .map(function (loc) {
+  return activeShows
+    .filter(function (s) { return locById[s.location_id]; })
+    .map(function (s) {
+      var loc = locById[s.location_id];
       return {
+        location_id: loc.id,
         name: loc.name,
         address: loc.address,
         lat: loc.lat,
@@ -160,7 +155,12 @@ function mergeData(locations, shows) {
         website: loc.website,
         instagram: loc.instagram,
         contact: loc.contact,
-        shows: showsByLocationId[loc.id]
+        current_show: s.current_show || "",
+        show_description: s.show_description || "",
+        start_date: s.start_date || "",
+        end_date: s.end_date || "",
+        image_url: s.image_url || "",
+        show_url: s.url || ""
       };
     });
 }
@@ -185,7 +185,19 @@ function render(galleries) {
 function addMarkers(galleries) {
   var bounds = new google.maps.LatLngBounds();
 
+  // Group by location so each venue gets one marker listing all its shows
+  var byLocation = {};
   galleries.forEach(function (g) {
+    if (!byLocation[g.location_id]) {
+      byLocation[g.location_id] = { loc: g, shows: [] };
+    }
+    byLocation[g.location_id].shows.push(g);
+  });
+
+  Object.keys(byLocation).forEach(function (id) {
+    var entry = byLocation[id];
+    var g = entry.loc;
+    var shows = entry.shows;
     var position = { lat: g.lat, lng: g.lng };
     bounds.extend(position);
 
@@ -195,29 +207,27 @@ function addMarkers(galleries) {
       title: g.name
     });
 
-    var firstShow = g.shows[0];
     var content = "";
-    if (firstShow.image_url) {
-      content += '<img src="' + encodeURI(firstShow.image_url) + '" alt="' + escapeHtml(firstShow.current_show || g.name) + '" style="width:200px;max-height:140px;object-fit:cover;border-radius:4px;margin-bottom:6px;">';
+    if (shows[0].image_url) {
+      content += '<img src="' + encodeURI(shows[0].image_url) + '" alt="' + escapeHtml(shows[0].current_show || g.name) + '" style="width:200px;max-height:140px;object-fit:cover;border-radius:4px;margin-bottom:6px;">';
     }
     content += "<strong>" + escapeHtml(g.name) + "</strong>";
-    g.shows.forEach(function (show) {
+    shows.forEach(function (show) {
       if (show.current_show) {
         content += "<br><em>" + escapeHtml(show.current_show) + "</em>";
       }
       if (show.start_date || show.end_date) {
         content += "<br><small>" + escapeHtml(formatDate(show.start_date) + " \u2013 " + formatDate(show.end_date)) + "</small>";
       }
-      if (show.url) {
-        content += '<br><a href="' + encodeURI(show.url) + '" target="_blank" rel="noopener">More info</a>';
+      if (show.show_url) {
+        content += ' <a href="' + encodeURI(show.show_url) + '" target="_blank" rel="noopener">More info</a>';
       }
     });
     if (g.website) {
       content += '<br><a href="' + encodeURI(g.website) + '" target="_blank" rel="noopener">Website</a>';
     }
     if (g.instagram) {
-      content +=
-        ' &middot; <a href="https://instagram.com/' + encodeURIComponent(g.instagram) + '" target="_blank" rel="noopener">@' + escapeHtml(g.instagram) + '</a>';
+      content += ' &middot; <a href="https://instagram.com/' + encodeURIComponent(g.instagram) + '" target="_blank" rel="noopener">@' + escapeHtml(g.instagram) + '</a>';
     }
     if (g.contact) {
       content += "<br>" + linkifyContact(g.contact);
@@ -247,10 +257,11 @@ function renderCards(galleries) {
   }
 
   galleries.forEach(function (g) {
+    var cardLink = g.show_url || g.website;
     var card;
-    if (g.website) {
+    if (cardLink) {
       card = document.createElement("a");
-      card.href = g.website;
+      card.href = cardLink;
       card.target = "_blank";
       card.rel = "noopener";
       card.className = "gallery-card gallery-card--link";
@@ -259,37 +270,29 @@ function renderCards(galleries) {
       card.className = "gallery-card";
     }
 
-    var firstShow = g.shows[0];
     var html = "";
 
-    if (firstShow.image_url) {
-      html += '<img src="' + encodeURI(firstShow.image_url) + '" alt="' + escapeHtml(firstShow.current_show || g.name) + '">';
+    if (g.image_url) {
+      html += '<img src="' + encodeURI(g.image_url) + '" alt="' + escapeHtml(g.current_show || g.name) + '">';
     }
 
     html += '<div class="card-body">';
     html += "<h3>" + escapeHtml(g.name) + "</h3>";
     html += '<p class="card-address">' + escapeHtml(g.address) + "</p>";
 
-    g.shows.forEach(function (show) {
-      html += '<div class="card-show-entry">';
-      if (show.current_show) {
-        html += '<p class="card-show">' + escapeHtml(show.current_show) + "</p>";
-      }
-      if (show.start_date || show.end_date) {
-        html += '<p class="card-dates">' + escapeHtml(formatDate(show.start_date) + " \u2013 " + formatDate(show.end_date)) + "</p>";
-      }
-      if (show.show_description) {
-        html += '<p class="card-description">' + escapeHtml(show.show_description) + "</p>";
-      }
-      if (show.url) {
-        html += '<p class="card-links"><a href="' + encodeURI(show.url) + '" target="_blank" rel="noopener">More info</a></p>';
-      }
-      html += '</div>';
-    });
-
+    if (g.current_show) {
+      html += '<p class="card-show">' + escapeHtml(g.current_show) + "</p>";
+    }
+    if (g.start_date || g.end_date) {
+      html += '<p class="card-dates">' + escapeHtml(formatDate(g.start_date) + " \u2013 " + formatDate(g.end_date)) + "</p>";
+    }
+    if (g.show_description) {
+      html += '<p class="card-description">' + escapeHtml(g.show_description) + "</p>";
+    }
     var links = [];
-    if (g.website) {
-      links.push('<a href="' + encodeURI(g.website) + '" target="_blank" rel="noopener">Website</a>');
+    var mainLink = g.show_url || g.website;
+    if (mainLink) {
+      links.push('<a href="' + encodeURI(mainLink) + '" target="_blank" rel="noopener">Website</a>');
     }
     if (g.instagram) {
       links.push('<a href="https://instagram.com/' + encodeURIComponent(g.instagram) + '" target="_blank" rel="noopener">@' + escapeHtml(g.instagram) + '</a>');
@@ -389,12 +392,10 @@ function updateCalendarLink(galleries) {
   if (galleries && galleries.length > 0) {
     details += "\n\n\ud83d\uddbc\ufe0f What\u2019s on:\n";
     galleries.forEach(function (g) {
-      g.shows.forEach(function (show) {
-        details += "\n\n\u2022 " + g.name;
-        if (show.current_show) details += " \u2014 " + show.current_show;
-        var link = show.url || g.website;
-        if (link) details += "\n  " + link;
-      });
+      details += "\n\n\u2022 " + g.name;
+      if (g.current_show) details += " \u2014 " + g.current_show;
+      var link = g.show_url || g.website;
+      if (link) details += "\n  " + link;
     });
   }
 
