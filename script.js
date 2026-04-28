@@ -141,7 +141,10 @@ function mergeData(locations, shows) {
 
   var showsByLocationId = {};
   activeShows.forEach(function (s) {
-    showsByLocationId[s.location_id] = s;
+    if (!showsByLocationId[s.location_id]) {
+      showsByLocationId[s.location_id] = [];
+    }
+    showsByLocationId[s.location_id].push(s);
   });
 
   return locations
@@ -149,7 +152,6 @@ function mergeData(locations, shows) {
       return showsByLocationId[loc.id];
     })
     .map(function (loc) {
-      var show = showsByLocationId[loc.id];
       return {
         name: loc.name,
         address: loc.address,
@@ -158,12 +160,7 @@ function mergeData(locations, shows) {
         website: loc.website,
         instagram: loc.instagram,
         contact: loc.contact,
-        current_show: show.current_show || "",
-        show_description: show.show_description || "",
-        start_date: show.start_date || "",
-        end_date: show.end_date || "",
-        image_url: show.image_url || "",
-        show_url: show.url || ""
+        shows: showsByLocationId[loc.id]
       };
     });
 }
@@ -198,21 +195,25 @@ function addMarkers(galleries) {
       title: g.name
     });
 
+    var firstShow = g.shows[0];
     var content = "";
-    if (g.image_url) {
-      content += '<img src="' + encodeURI(g.image_url) + '" alt="' + escapeHtml(g.current_show || g.name) + '" style="width:200px;max-height:140px;object-fit:cover;border-radius:4px;margin-bottom:6px;">';
+    if (firstShow.image_url) {
+      content += '<img src="' + encodeURI(firstShow.image_url) + '" alt="' + escapeHtml(firstShow.current_show || g.name) + '" style="width:200px;max-height:140px;object-fit:cover;border-radius:4px;margin-bottom:6px;">';
     }
     content += "<strong>" + escapeHtml(g.name) + "</strong>";
-    if (g.current_show) {
-      content += "<br>" + escapeHtml(g.current_show);
-    }
-    if (g.start_date || g.end_date) {
-      content += "<br><small>" + escapeHtml(formatDate(g.start_date) + " \u2013 " + formatDate(g.end_date)) + "</small>";
-    }
-    var markerLink = g.show_url || g.website;
-    if (markerLink) {
-      content +=
-        '<br><a href="' + encodeURI(markerLink) + '" target="_blank" rel="noopener">Website</a>';
+    g.shows.forEach(function (show) {
+      if (show.current_show) {
+        content += "<br><em>" + escapeHtml(show.current_show) + "</em>";
+      }
+      if (show.start_date || show.end_date) {
+        content += "<br><small>" + escapeHtml(formatDate(show.start_date) + " \u2013 " + formatDate(show.end_date)) + "</small>";
+      }
+      if (show.url) {
+        content += '<br><a href="' + encodeURI(show.url) + '" target="_blank" rel="noopener">More info</a>';
+      }
+    });
+    if (g.website) {
+      content += '<br><a href="' + encodeURI(g.website) + '" target="_blank" rel="noopener">Website</a>';
     }
     if (g.instagram) {
       content +=
@@ -246,11 +247,10 @@ function renderCards(galleries) {
   }
 
   galleries.forEach(function (g) {
-    var cardLink = g.show_url || g.website;
     var card;
-    if (cardLink) {
+    if (g.website) {
       card = document.createElement("a");
-      card.href = cardLink;
+      card.href = g.website;
       card.target = "_blank";
       card.rel = "noopener";
       card.className = "gallery-card gallery-card--link";
@@ -259,29 +259,37 @@ function renderCards(galleries) {
       card.className = "gallery-card";
     }
 
+    var firstShow = g.shows[0];
     var html = "";
 
-    if (g.image_url) {
-      html += '<img src="' + encodeURI(g.image_url) + '" alt="' + escapeHtml(g.current_show || g.name) + '">';
+    if (firstShow.image_url) {
+      html += '<img src="' + encodeURI(firstShow.image_url) + '" alt="' + escapeHtml(firstShow.current_show || g.name) + '">';
     }
 
     html += '<div class="card-body">';
     html += "<h3>" + escapeHtml(g.name) + "</h3>";
     html += '<p class="card-address">' + escapeHtml(g.address) + "</p>";
 
-    if (g.current_show) {
-      html += '<p class="card-show">' + escapeHtml(g.current_show) + "</p>";
-    }
-    if (g.start_date || g.end_date) {
-      html += '<p class="card-dates">' + escapeHtml(formatDate(g.start_date) + " \u2013 " + formatDate(g.end_date)) + "</p>";
-    }
-    if (g.show_description) {
-      html += '<p class="card-description">' + escapeHtml(g.show_description) + "</p>";
-    }
+    g.shows.forEach(function (show) {
+      html += '<div class="card-show-entry">';
+      if (show.current_show) {
+        html += '<p class="card-show">' + escapeHtml(show.current_show) + "</p>";
+      }
+      if (show.start_date || show.end_date) {
+        html += '<p class="card-dates">' + escapeHtml(formatDate(show.start_date) + " \u2013 " + formatDate(show.end_date)) + "</p>";
+      }
+      if (show.show_description) {
+        html += '<p class="card-description">' + escapeHtml(show.show_description) + "</p>";
+      }
+      if (show.url) {
+        html += '<p class="card-links"><a href="' + encodeURI(show.url) + '" target="_blank" rel="noopener">More info</a></p>';
+      }
+      html += '</div>';
+    });
+
     var links = [];
-    var mainLink = g.show_url || g.website;
-    if (mainLink) {
-      links.push('<a href="' + encodeURI(mainLink) + '" target="_blank" rel="noopener">Website</a>');
+    if (g.website) {
+      links.push('<a href="' + encodeURI(g.website) + '" target="_blank" rel="noopener">Website</a>');
     }
     if (g.instagram) {
       links.push('<a href="https://instagram.com/' + encodeURIComponent(g.instagram) + '" target="_blank" rel="noopener">@' + escapeHtml(g.instagram) + '</a>');
@@ -381,10 +389,12 @@ function updateCalendarLink(galleries) {
   if (galleries && galleries.length > 0) {
     details += "\n\n\ud83d\uddbc\ufe0f What\u2019s on:\n";
     galleries.forEach(function (g) {
-      details += "\n\n\u2022 " + g.name;
-      if (g.current_show) details += " \u2014 " + g.current_show;
-      var link = g.show_url || g.website;
-      if (link) details += "\n  " + link;
+      g.shows.forEach(function (show) {
+        details += "\n\n\u2022 " + g.name;
+        if (show.current_show) details += " \u2014 " + show.current_show;
+        var link = show.url || g.website;
+        if (link) details += "\n  " + link;
+      });
     });
   }
 
