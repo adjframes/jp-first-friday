@@ -16,6 +16,10 @@ function getNextFirstFriday() {
     fridayDate = dow <= 5 ? 1 + (5 - dow) : 1 + (12 - dow);
     firstFriday = new Date(year, month, fridayDate);
   }
+  // July 3rd 2026 is skipped — jump to August 7th
+  if (firstFriday.getFullYear() === 2026 && firstFriday.getMonth() === 6 && firstFriday.getDate() === 3) {
+    firstFriday = new Date(2026, 7, 7);
+  }
   return firstFriday;
 }
 
