@@ -628,3 +628,76 @@ a.gallery-card--link {
     flex-direction: column;
   }
 }
+
+/* ── Skip Notice Popup ───────────────────────────────────── */
+
+.skip-notice-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(26, 26, 46, 0.65);
+  z-index: 9999;
+  align-items: center;
+  justify-content: center;
+  padding: 1.25rem;
+}
+
+.skip-notice-modal {
+  background: #f0eee6;
+  border-radius: 12px;
+  padding: 2rem 2rem 1.75rem;
+  max-width: 420px;
+  width: 100%;
+  position: relative;
+  box-shadow: 0 8px 40px rgba(26, 26, 46, 0.3);
+}
+
+.skip-notice-close {
+  position: absolute;
+  top: 0.875rem;
+  right: 1rem;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  line-height: 1;
+  color: #888;
+  cursor: pointer;
+  padding: 0;
+}
+
+.skip-notice-close:hover {
+  color: #1a1a2e;
+}
+
+.skip-notice-title {
+  font-family: "Syne", sans-serif;
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: #1a1a2e;
+  margin-bottom: 0.75rem;
+  padding-right: 1.5rem;
+}
+
+.skip-notice-body {
+  font-size: 1rem;
+  color: #444;
+  line-height: 1.55;
+  margin-bottom: 1.5rem;
+}
+
+.skip-notice-btn {
+  background: #d4403a;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 0.6rem 1.4rem;
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  letter-spacing: 0.04em;
+}
+
+.skip-notice-btn:hover {
+  background: #a83230;
+}

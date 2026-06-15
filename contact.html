@@ -97,6 +97,35 @@
 
   <script src="header.js"></script>
 
+  <!-- July 3rd skip notice (shows 6/15–7/5/2026) -->
+  <div id="skip-notice-overlay" class="skip-notice-overlay">
+    <div class="skip-notice-modal">
+      <button class="skip-notice-close" id="skip-notice-close" aria-label="Close">&times;</button>
+      <h2 class="skip-notice-title">No First Friday in July</h2>
+      <p class="skip-notice-body">We're skipping <strong>July 3rd</strong> this year. Our next First Friday is <strong>Friday, August 1st</strong>. See you then!</p>
+      <button class="skip-notice-btn" id="skip-notice-btn">Got it</button>
+    </div>
+  </div>
+  <script>
+    (function () {
+      var key = 'july3-skip-dismissed';
+      var now = new Date();
+      var end = new Date('2026-07-06');
+      if (now < end && !localStorage.getItem(key)) {
+        document.getElementById('skip-notice-overlay').style.display = 'flex';
+      }
+      function dismiss() {
+        localStorage.setItem(key, '1');
+        document.getElementById('skip-notice-overlay').style.display = 'none';
+      }
+      document.getElementById('skip-notice-close').addEventListener('click', dismiss);
+      document.getElementById('skip-notice-btn').addEventListener('click', dismiss);
+      document.getElementById('skip-notice-overlay').addEventListener('click', function (e) {
+        if (e.target === this) dismiss();
+      });
+    })();
+  </script>
+
   <!-- Footer -->
   <footer class="site-footer">
     <div class="footer-overlay"></div>
